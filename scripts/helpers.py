@@ -15,6 +15,55 @@ def standardize(x, mean_x=None, std_x=None):
     return tx, mean_x, std_x
 
 
+def build_k_indices(y, k_fold, seed):
+    """build k indices for k-fold cross-validation."""
+    num_row = y.shape[0]
+    interval = int(num_row / k_fold)
+    np.random.seed(seed)
+    indices = np.random.permutation(num_row)
+    k_indices = [indices[k * interval: (k + 1) * interval]
+                 for k in range(k_fold)]
+    return np.array(k_indices)
+
+
+def normalize(tX):
+    """
+	Custom function that computes the standardization of the data.
+	@param : all the parameters of the model.
+    """
+    return (tX-np.mean(tX,axis=0))/np.std(tX,axis=0)
+
+
+def sanitize_NaN(tX):
+    """
+	Removes the NaNs from the data and replace it with the median of the valid data.
+	The columns are hard coded, represent the columns from the dataset for the project 1
+    """
+    x = tX.copy()
+    negative_NaN_table = np.array([0,4,5,6,12,23,24,25,26,27,28])
+    NEGATIVE_NAN = -999.0
+    zero_NaN_table = [29]
+    ZERO_NAN = 0
+    for row in negative_NaN_table:
+        x_without_nan = x[:,row][np.where(x[:,row] != NEGATIVE_NAN)]
+        x[:,row][np.where(x[:,row] == NEGATIVE_NAN)] = np.median(x_without_nan)
+    for row in zero_NaN_table:
+        x_without_nan = x[:,row][np.where(x[:,row] != ZERO_NAN)]
+        x[:,row][np.where(x[:,row] == NEGATIVE_NAN)] = np.median(x_without_nan)
+    return x
+
+
+def exclude_NaN(tX):
+    """
+	Removes the columns containing NaNs from the data set.
+	(i.e. the ones having -999 or zeros that should not be there)
+	The columns are hard coded, represent the columns from the dataset for the project 1 
+    """
+    sort_no_NaN= [1,2,3,7,8,9,10,11,13,14,15,16,17,18,19,20,21,28,29]
+    tX_reduced = tX[:,sort_no_NaN]
+    return tX_reduced
+
+
 def batch_iter(y, tx, batch_size, num_batches=None, shuffle=True):
     """
     Generate a minibatch iterator for a dataset.
