@@ -2,6 +2,8 @@
 """some helper functions."""
 import numpy as np
 
+### FIRST FUNCTIONS THAT ACT ON OUR RAW DATA
+
 def standardize(x, mean_x=None, std_x=None):
     """Standardize the original data set."""
     if mean_x is None:
@@ -14,43 +16,39 @@ def standardize(x, mean_x=None, std_x=None):
     tx = np.hstack((np.ones((x.shape[0],1)), x))
     return tx, mean_x, std_x
 
-
-def build_k_indices(y, k_fold, seed):
-    """build k indices for k-fold cross-validation."""
-    num_row = y.shape[0]
-    interval = int(num_row / k_fold)
-    np.random.seed(seed)
-    indices = np.random.permutation(num_row)
-    k_indices = [indices[k * interval: (k + 1) * interval]
-                 for k in range(k_fold)]
-    return np.array(k_indices)
-
-
-def normalize(tX):
+def sanitize_NaN(tX,median_vec=None):
     """
-	Custom function that computes the standardization of the data.
-	@param : all the parameters of the model.
+    Removes the NaNs from the data and replace it with the median of the valid data.
+    The columns are hard coded, represent the columns from the dataset for the project 1
+    Returns the computed median, and can apply a median taken as input. 
+    The input median has to be the median of the NaN columns below.
     """
-    return (tX-np.mean(tX,axis=0))/np.std(tX,axis=0)
-
-
-def sanitize_NaN(tX):
-    """
-	Removes the NaNs from the data and replace it with the median of the valid data.
-	The columns are hard coded, represent the columns from the dataset for the project 1
-    """
+    
     x = tX.copy()
     negative_NaN_table = np.array([0,4,5,6,12,23,24,25,26,27,28])
     NEGATIVE_NAN = -999.0
     zero_NaN_table = [29]
     ZERO_NAN = 0
-    for row in negative_NaN_table:
-        x_without_nan = x[:,row][np.where(x[:,row] != NEGATIVE_NAN)]
-        x[:,row][np.where(x[:,row] == NEGATIVE_NAN)] = np.median(x_without_nan)
-    for row in zero_NaN_table:
-        x_without_nan = x[:,row][np.where(x[:,row] != ZERO_NAN)]
-        x[:,row][np.where(x[:,row] == NEGATIVE_NAN)] = np.median(x_without_nan)
-    return x
+    # Compute the median of the valid data is no median is provided
+    if median_vec is None:
+        n_iter=0
+        median_vec = np.zeros(len(negative_NaN_table) + len(zero_NaN_table))
+        for row in negative_NaN_table:
+            x_without_nan = x[:,row][np.where(x[:,row] != NEGATIVE_NAN)]
+            median_vec[n_iter] = np.median(x_without_nan)
+            n_iter=n_iter+1
+        for row in zero_NaN_table:
+            x_without_nan = x[:,row][np.where(x[:,row] != ZERO_NAN)]
+            median_vec[n_iter] = np.median(x_without_nan)
+            n_iter=n_iter+1
+    else:
+        assert len(median_vec) == len(negative_NaN_table) + len(zero_NaN_table)
+    #Replace the NaN values with the median of the table        
+    for i,row in enumerate(negative_NaN_table):
+        x[:,row][np.where(x[:,row] == NEGATIVE_NAN)] = median_vec[i]
+    for j,row in enumerate(zero_NaN_table):
+        x[:,row][np.where(x[:,row] == ZERO_NAN)] = median_vec[i+j+1]
+    return x, median_vec
 
 
 def exclude_NaN(tX):
@@ -63,6 +61,19 @@ def exclude_NaN(tX):
     tX_reduced = tX[:,sort_no_NaN]
     return tX_reduced
 
+### FUNCTION FOR CROSS VALIDATION
+
+def build_k_indices(y, k_fold, seed):
+    """build k indices for k-fold cross-validation."""
+    num_row = y.shape[0]
+    interval = int(num_row / k_fold)
+    np.random.seed(seed)
+    indices = np.random.permutation(num_row)
+    k_indices = [indices[k * interval: (k + 1) * interval]
+                 for k in range(k_fold)]
+    return np.array(k_indices)
+
+### FUNCTION FOR SGD
 
 def batch_iter(y, tx, batch_size, num_batches=None, shuffle=True):
     """
