@@ -8,12 +8,12 @@ def run():
     """ridge regression running script. works on the RAW data"""
     
     #0. DEFINE PARAMETERS FOR OUR RUN
-    seed = 12
+    seed = 1
     
     #not possible yet to run polynomial  degrees at the same time.
-    degrees = np.array([1])
+    degrees = np.array([3])
     k_fold = 4
-    lambdas = np.logspace(-1,2,5)
+    lambdas = np.logspace(-1,2,50)
     
     #1. LOAD THE DATA
     print('LOADING THE DATA: ',end=" ")
