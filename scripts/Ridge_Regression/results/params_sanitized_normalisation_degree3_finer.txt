@@ -1,0 +1,4 @@
+seed = 1
+degrees = np.array([3])
+k_fold = 4
+lambdas = np.logspace(-1,2,50)

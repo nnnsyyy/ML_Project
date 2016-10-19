@@ -17,13 +17,19 @@ def standardize(x, mean_x=None, std_x=None):
 
 def sanitize_NaN(tX,median_vec=None):
     """
-    Removes the NaNs from the data and replace it with the median of the valid data.
+    Removes the NaNs from the data and replace it with the median of the valid data. 
     The columns are hard coded, represent the columns from the dataset for the project 1
     Returns the computed median, and can apply a median taken as input. 
     The input median has to be the median of the NaN columns below.
+    @param tX : the raw data from train.csv
+    @param median_vec : the vector of the medians that were previously returned from this function 
+                        (contains the median of the valid input of the columns of the array below.)
     """
     
     x = tX.copy()
+    #Hard coding of the columns of the data from train.csv that contains some NaNs in their columns.
+    #There are two types of NaNs, either -999 or 0, and we distinguish both cases 
+    #(our vector median_vec does not, it simply contains all the medians of the valid data)
     negative_NaN_table = np.array([0,4,5,6,12,23,24,25,26,27,28])
     NEGATIVE_NAN = -999.0
     zero_NaN_table = [29]
@@ -42,6 +48,7 @@ def sanitize_NaN(tX,median_vec=None):
             n_iter=n_iter+1
     else:
         assert len(median_vec) == len(negative_NaN_table) + len(zero_NaN_table)
+        
     #Replace the NaN values with the median of the table        
     for i,row in enumerate(negative_NaN_table):
         x[:,row][np.where(x[:,row] == NEGATIVE_NAN)] = median_vec[i]
@@ -49,16 +56,6 @@ def sanitize_NaN(tX,median_vec=None):
         x[:,row][np.where(x[:,row] == ZERO_NAN)] = median_vec[i+j+1]
     return x, median_vec
 
-
-def exclude_NaN(tX):
-    """
-	Removes the columns containing NaNs from the data set.
-	(i.e. the ones having -999 or zeros that should not be there)
-	The columns are hard coded, represent the columns from the dataset for the project 1 
-    """
-    sort_no_NaN= [1,2,3,7,8,9,10,11,13,14,15,16,17,18,19,20,21,28,29]
-    tX_reduced = tX[:,sort_no_NaN]
-    return tX_reduced
 
 ### FUNCTION FOR CROSS VALIDATION
 
