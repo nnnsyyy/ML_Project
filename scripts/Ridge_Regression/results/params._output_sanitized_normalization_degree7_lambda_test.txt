@@ -1,0 +1,7 @@
+    #0. DEFINE PARAMETERS FOR OUR RUN
+    seed = 1
+    
+    #not possible yet to run polynomial  degrees at the same time.
+    degrees = np.array([7])
+    k_fold = 4
+    lambdas = np.logspace(-3,3,20)

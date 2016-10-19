@@ -22,7 +22,7 @@ def run():
     seed = 1
     
     #not possible yet to run polynomial  degrees at the same time.
-    degrees = np.array([7])
+    degrees = np.array([8])
     k_fold = 4
     lambdas = np.logspace(-3,3,20)
     
@@ -56,7 +56,7 @@ def run():
     tX_test_sorted,median_vec = sanitize_NaN(tX_test,median_tr)
     tX_test_sorted,mean_tr,std_tr = standardize(tX_test_sorted,mean_tr,std_tr)
     tX_test_sorted = build_poly(tX_test_sorted, degree)
-    OUTPUT_PATH = 'results/output_sanitized_normalization_degree7_lambda_test.csv' # Fill in desired name of output file for submission
+    OUTPUT_PATH = 'results/output_sanitized_normalization_degree7_lambda_finer.csv' # Fill in desired name of output file for submission
     print('EXPORTING TESTING DATA WITH PREDICTIONS :',end=" ")
     y_pred = predict_labels(np.array(weights), np.array(tX_test_sorted))
     create_csv_submission(ids_test, y_pred, OUTPUT_PATH)
