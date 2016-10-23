@@ -8,6 +8,7 @@ import costs as co
 from helpers import *
 from proj1_helpers import *
 from plots import *
+from costs import *
 
 
 def compute_gradient_MSE(y, tx, w):
@@ -59,6 +60,9 @@ def gradient_descent_MAE(y, tx, initial_w, max_iters, gamma):
     return losses, ws
 
 def least_squares_GD(y, tX, gamma, max_iters):
+    """
+    TODO
+    """
     #Generating initial guess using the mean of each column
     initial_w = generate_initial_w(tX)
     #ws = [[initial_w]]
@@ -75,23 +79,24 @@ def least_squares_GD(y, tX, gamma, max_iters):
 
 def cross_validation(y,tX,gammas,max_iters, k_fold,seed):
     """
+    TODO
     """
 
     # split data in k fold
     k_indices = build_k_indices(y, k_fold, seed)
     
     # cross validation:      
-    best_gamma = np.zeros(len(gammas))
-    best_error = np.zeros(len(gammas))
-    for j,gamma in enumerate(gammas):
+    best_gamma = np.zeros(len(max_iters))
+    best_error = np.zeros(len(max_iters))
+    for j,max_iter in enumerate(max_iters):
         
-        print('\n Testing for a stepsize ', gamma)
-        #Training and testing errors for each lambda, so we are able to visualize them afterwards.
+        print('\n Testing for max iterations of : ', max_iter)
+        #Training and testing errors for each max iterations value, so we are able to visualize them afterwards.
         class_error_tr = np.zeros(len(gammas))
         class_error_te = np.zeros(len(gammas))
         
-        for i,max_iter in enumerate(max_iters):
-            print('max_iter=',round(max_iter,6),end=", ")
+        for i,gamma in enumerate(gammas):
+            print('gamma=',round(gamma,6),end=", ")
             
             #This is actually where the k-fold cross-validation is computed. We sum all the errors and then average them. 
             loss_tr_sum=0
@@ -121,7 +126,8 @@ def cross_validation(y,tX,gammas,max_iters, k_fold,seed):
 
 
 def cross_validation_gd(y, x, k_indices, k, gamma, max_iter):
-    """ 
+    """
+    TODO
     """
     #1. WE DIVIDE THE DATA IN THE SUBGROUPS
     # get k'th subgroup in test, others in train: 
@@ -143,11 +149,6 @@ def cross_validation_gd(y, x, k_indices, k, gamma, max_iter):
     x_train,mean_tr,std_tr = standardize(x_train)
     x_test, mean_te,ste_te = standardize(x_test,mean_tr,std_tr)
     
-    # form data with polynomial degree:
-    #x_train_poly = build_poly(x_train,degree)
-    #x_test_poly = build_poly(x_test,degree)
-    #print('Shape of polynomial training date :', x_train_poly.shape)
-    
     #3. WE RUN THE MODEL AND COMPUTE THE ERROR
     # gradient descent: 
     w_gd = least_squares_GD(y_train,x_train,gamma,max_iter)
@@ -157,6 +158,6 @@ def cross_validation_gd(y, x, k_indices, k, gamma, max_iter):
     loss_te = sum(abs(y_test-predict_labels(w_gd,x_test)))/(2*len(y_test))
     
     #MSE error computed here, as the RMSE error is not summable.
-    #loss_tr = 2*compute_mse(y_train,x_train_poly,w_rr)
-    #loss_te = 2*compute_mse(y_test,x_test_poly,w_rr)
+    loss_tr = 2*compute_mse(y_train,x_train,w_gd)
+    loss_te = 2*compute_mse(y_test,x_test,w_gd)
     return loss_tr, loss_te#, loss_tr_class,loss_te_class
