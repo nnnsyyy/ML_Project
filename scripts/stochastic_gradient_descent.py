@@ -12,10 +12,10 @@ def compute_stoch_gradient(y, tx, w):
     e = y-np.dot(tx,w)
     
     #Gradient for MSE
-    #return -1/len(y)*np.dot(np.transpose(tx),e)
+    return -1/len(y)*np.dot(tx.T,e)
 
     #Gradient for MAE
-    return -1/len(y)*np.dot(np.transpose(tx),np.sign(e))
+    #return -1/len(y)*np.dot(tx.T,np.sign(e))
 
 
 def stochastic_gradient_descent(
@@ -32,16 +32,20 @@ def stochastic_gradient_descent(
     losses = []
     w = initial_w
     n_iter = 0
-    while(n_iter < max_epochs):
+    for n_iter in range(max_epochs):
         for minibatch_y, minibatch_tx in batch_iter(y, tx, batch_size,shuffle):
-            w = w-gamma*compute_stoch_gradient(minibatch_y,minibatch_tx,w)
-            loss = co.compute_loss(minibatch_y,minibatch_tx,w)
+            # ***************************************************
+            # compute stochastic gradient and loss
+            # ***************************************************
+            loss=compute_stoch_gradient(minibatch_y, minibatch_tx, w)
+            # ***************************************************
+            # update w by gradient
+            # ***************************************************
+            w=w-gamma*loss
             # store w and loss
-            ws.append(w)
+            ws.append(np.copy(w))
             losses.append(loss)
             print("Gradient Descent({bi}/{ti}): loss={l}, w0={w0}, w1={w1}".format(
-                  bi=n_iter, ti=max_epochs - 1, l=loss, w0=w[0], w1=w[1]))
-            n_iter+=1
-            if(n_iter >= max_epochs):
-                return losses,ws
+                  bi=n_iter, ti=max_iters - 1, l=loss, w0=w[0], w1=w[1]))
+
     return losses, ws
