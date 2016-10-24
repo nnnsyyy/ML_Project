@@ -5,7 +5,7 @@ from proj1_helpers import *
 from logistic_regression import *
 
 def run():
-    """ Ridge regression running script. It is self-contained.
+    """ L regression running script. It is self-contained.
         Complete the whole pipeline of the simulation. The parameters are given in the first part, then the whole simulation takes part in 4 steps :
             0. Set the parameters :
                 - seed :    seed for the random number generation.
@@ -22,20 +22,22 @@ def run():
     seed = 1
     
     #not possible yet to run polynomial  degrees at the same time.
-    degrees = np.array([1])
+    degrees = np.array([3])
     k_fold = 4
-    gammas = np.logspace(-1,1,20)
-    max_iters = 10000
+    gammas = [0.00000001]#np.logspace(-3,-2,2)
+    max_iters = 2000
     #1. LOAD THE DATA
     print('LOADING THE DATA: ',end=" ")
     DATA_TRAIN_PATH = '../data/train.csv' # TODO: download train data and supply path here 
     y, tX, ids = load_csv_data(DATA_TRAIN_PATH)
+    y = (y+1)/2
     print('DONE')
     
     #2. RUN CROSS VALIDATION TO GET BEST gamma
     print('CROSS VALIDATION')
-    degree, gamma, error = cross_validation(y,tX,degrees,gammas,max_iters,k_fold,seed)
-
+    #degree, gamma, error = cross_validation(y,tX,degrees,gammas,max_iters,k_fold,seed)
+    degree = degrees[0]
+    gamma = gammas[0]
     
     #3. TRAIN THE MODEL
     #Let us now clean the input
@@ -43,7 +45,7 @@ def run():
     tX,mean_tr,std_tr = standardize(tX)
     tX = build_poly(tX,degree)
 
-    weights = logistic_regression(y, tX, gamma)
+    weights = logistic_regression(y, tX, gamma,max_iters)
 
     print('Weights on whole set\n',weights)
     
@@ -56,10 +58,10 @@ def run():
     tX_test_sorted,median_vec = sanitize_NaN(tX_test,median_tr)
     tX_test_sorted,mean_tr,std_tr = standardize(tX_test_sorted,mean_tr,std_tr)
     tX_test_sorted = build_poly(tX_test_sorted, degree)
-    OUTPUT_PATH = 'results/output_sanitized_normalization_degree7_lambda_finer.csv' # Fill in desired name of output file for submission
+    OUTPUT_PATH = 'results/output_sanitized_normalization_test_deg_2_gamma_8.csv' # Fill in desired name of output file for submission
     print('EXPORTING TESTING DATA WITH PREDICTIONS :',end=" ")
     y_pred = predict_labels(np.array(weights), np.array(tX_test_sorted))
     create_csv_submission(ids_test, y_pred, OUTPUT_PATH)
     print('DONE')
-
+    
 run()

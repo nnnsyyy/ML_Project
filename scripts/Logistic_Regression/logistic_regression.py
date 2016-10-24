@@ -13,19 +13,32 @@ def sigmoid(t):
     
 def calculate_loss(y, tx, w):
     """compute the cost by negative log likelihood."""
-    return -np.dot(y,np.log(sigmoid(np.dot(tx,w))))-np.dot(1-y,np.log(1-sigmoid(np.dot(tx,w))))
-
+    sigma = np.squeeze(sigmoid(np.dot(tx,w)))
+    return -(np.dot(y,np.log(sigma))+np.dot(1-y,np.log(1-sigma)))
+    #xw = np.squeeze(np.dot(tx,w))
+    #print(np.log(1+np.exp(xw))[0],np.log(1+np.exp(xw))[1])
+    #print(np.dot(y,xw))
+    #return np.log(1+np.exp(xw)).sum()-np.dot(y,xw)
 def calculate_gradient(y, tx, w):
     """compute the gradient of loss."""
-    return np.dot(tx.T,sigmoid(np.dot(tx,w))-y)
+    sigma = np.squeeze(sigmoid(np.dot(tx,w)))
+    return np.dot(tx.T,sigma-y)
 
 def learning_by_gradient_descent(y, tx, w, gamma):
     """
     Do one step of gradient descen using logistic regression.
     Return the loss and the updated w.
     """
+    #print('Init shape w',w.shape,'Shape of y',y.shape,'Shape of x', tx.shape)
+    #print('Test',np.squeeze(np.dot(tx,w)).shape,y.shape)
     loss = calculate_loss(y,tx,w)
+    #print(loss)
+    #print(w)
+    #print('Shape of loss', loss.shape)
+ 
     grad_w = calculate_gradient(y,tx,w)
+    #print(min(grad_w),max(grad_w))
+    #print('Shape of gradient', grad_w.shape)
     w = w -gamma*grad_w
     return loss, w
 
@@ -41,19 +54,20 @@ def logistic_regression(y, tx, gamma,max_iters):
     losses = []
 
     # build tx
-    w = np.zeros((tx.shape[1], 1))
+    w = np.zeros((tx.shape[1]))
 
     # start the logistic regression
     for iter in range(max_iters):
         # get loss and update w.
         loss, w = learning_by_gradient_descent(y, tx, w, gamma)
         # log info
-        if iter % 1000 == 0:
-            print("\t\tCurrent iteration={i}, the loss={l}".format(i=iter, l=loss))
+        #if iter % 50 == 0:
+        print("\t\tCurrent iteration={i}, the loss={l}".format(i=iter, l=loss))
         # converge criteria
         losses.append(loss)
-        if len(losses) > 1 and np.abs(losses[-1] - losses[-2]) < threshold:
-            break
+        if (len(losses) > 1): 
+            if(np.abs(losses[-1] - losses[-2]) < threshold):
+                break
     # visualization
     #visualization(y, x, mean_x, std_x, w, "classification_by_logistic_regression_gradient_descent")
     print("\t\tThe loss={l}".format(l=calculate_loss(y, tx, w)))
@@ -162,7 +176,7 @@ def cross_validation_lr(y, x, k_indices, k, gamma,max_iters, degree):
     w_lr = logistic_regression(y_train,x_train_poly,gamma,max_iters)
     
     # calculate the classification error for train and test data:
-    loss_tr= sum(abs(y_train-predict_labels(w_lr,x_train_poly)))/(2*len(y_train))
-    loss_te = sum(abs(y_test-predict_labels(w_lr,x_test_poly)))/(2*len(y_test))
+    loss_tr= sum(abs((2*(y_train)-1)-predict_labels(w_lr,x_train_poly)))/(2*len(y_train))
+    loss_te = sum(abs((2*y_test-1)-predict_labels(w_lr,x_test_poly)))/(2*len(y_test))
     
     return loss_tr, loss_te#, loss_tr_class,loss_te_class
