@@ -9,16 +9,25 @@ from helpers import *
 
 def sigmoid(t):
     """apply sigmoid function on t."""
-    return 1/(1+np.exp(-t))
+    #print(min(t))
+    sig = 1/(1+np.exp(-t))
+    #print(min(sig))
+    return sig
     
 def calculate_loss(y, tx, w):
     """compute the cost by negative log likelihood."""
-    sigma = np.squeeze(sigmoid(np.dot(tx,w)))
-    return -(np.dot(y,np.log(sigma))+np.dot(1-y,np.log(1-sigma)))
-    #xw = np.squeeze(np.dot(tx,w))
+    #sigma = np.squeeze(sigmoid(np.dot(tx,w)))
+    #return -(np.dot(y,np.log(sigma))+np.dot(1-y,np.log(1-sigma)))
+    xw = np.squeeze(np.dot(tx,w))
     #print(np.log(1+np.exp(xw))[0],np.log(1+np.exp(xw))[1])
     #print(np.dot(y,xw))
-    #return np.log(1+np.exp(xw)).sum()-np.dot(y,xw)
+    #print(max(xw), min(xw))
+    #xw = np.where(xw >  709,  709, xw)
+    #print(max(xw), min(xw))
+    res = np.log(1+np.exp(xw))
+    res = np.where(res == float('inf'),  xw, res)
+    return np.sum(res) - np.dot(y,xw)
+    
 def calculate_gradient(y, tx, w):
     """compute the gradient of loss."""
     sigma = np.squeeze(sigmoid(np.dot(tx,w)))
@@ -31,7 +40,16 @@ def learning_by_gradient_descent(y, tx, w, gamma):
     """
     #print('Init shape w',w.shape,'Shape of y',y.shape,'Shape of x', tx.shape)
     #print('Test',np.squeeze(np.dot(tx,w)).shape,y.shape)
+    restore_these_settings = np.geterr()
+
+    temp_settings = restore_these_settings.copy()
+    temp_settings["over"] = "ignore"
+    temp_settings["under"] = "ignore"
+
+    np.seterr(**temp_settings)
     loss = calculate_loss(y,tx,w)
+    np.seterr(**restore_these_settings)    
+    
     #print(loss)
     #print(w)
     #print('Shape of loss', loss.shape)
