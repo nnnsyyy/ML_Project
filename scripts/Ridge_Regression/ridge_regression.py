@@ -5,7 +5,7 @@ import numpy as np
 from proj1_helpers import predict_labels
 from build_polynomial import build_poly
 from plots import cross_validation_visualization
-from helpers import *
+from ..helpers.helpers import *
 
 def ridge_regression(y, tx, lambda_):
     """ Implements ridge regression.

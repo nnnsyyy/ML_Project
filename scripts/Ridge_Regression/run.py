@@ -1,7 +1,7 @@
 # Useful starting lines
 import numpy as np
 import matplotlib.pyplot as plt
-from proj1_helpers import *
+from ...helpers import proj1_helpers as ph
 from ridge_regression import *
 
 def run():
@@ -29,7 +29,7 @@ def run():
     #1. LOAD THE DATA
     print('LOADING THE DATA: ',end=" ")
     DATA_TRAIN_PATH = '../data/train.csv' # TODO: download train data and supply path here 
-    y, tX, ids = load_csv_data(DATA_TRAIN_PATH)
+    y, tX, ids = ph.load_csv_data(DATA_TRAIN_PATH)
     print('DONE')
     
     #2. RUN CROSS VALIDATION TO GET BEST LAMBDA
@@ -50,7 +50,7 @@ def run():
     #4. TEST THE MODEL AND EXPORT THE RESULTS
     DATA_TEST_PATH = '../data/test.csv'  # Download train data and supply path here 
     print('IMPORTING TESTING DATA :',end=" ")
-    y_test, tX_test, ids_test = load_csv_data(DATA_TEST_PATH)
+    y_test, tX_test, ids_test = ph.load_csv_data(DATA_TEST_PATH)
     print('DONE')
     
     tX_test_sorted,median_vec = sanitize_NaN(tX_test,median_tr)
@@ -58,8 +58,8 @@ def run():
     tX_test_sorted = build_poly(tX_test_sorted, degree)
     OUTPUT_PATH = 'results/output_sanitized_normalization_degree11_lambda_finer.csv' # Fill in desired name of output file for submission
     print('EXPORTING TESTING DATA WITH PREDICTIONS :',end=" ")
-    y_pred = predict_labels(np.array(weights), np.array(tX_test_sorted))
-    create_csv_submission(ids_test, y_pred, OUTPUT_PATH)
+    y_pred = ph.predict_labels(np.array(weights), np.array(tX_test_sorted))
+    ph.create_csv_submission(ids_test, y_pred, OUTPUT_PATH)
     print('DONE')
 
 run()

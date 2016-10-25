@@ -4,6 +4,25 @@ import numpy as np
 
 ### FIRST FUNCTIONS THAT ACT ON OUR RAW DATA
 
+def count_NaN(tX):
+    """
+        Counts the number of NaNs in a column and adds it in a column at the end in order for the information to be conserved.
+        @param tX : the input of our data.
+        
+    """
+    negative_NaN_table = np.array([0,4,5,6,12,23,24,25,26,27,28])
+    NEGATIVE_NAN = -999.0
+    zero_NaN_table = [29]
+    ZERO_NAN = 0
+    nan_count = np.zeros((tX.shape[0]))
+    for i in range (tX.shape[0]):
+        for index,col in enumerate(negative_NaN_table):
+            #print(tX[i,col]==)
+            nan_count[i]=nan_count[i]+(tX[i,col]== NEGATIVE_NAN)
+        for index,col in enumerate(zero_NaN_table):
+            nan_count[i]=nan_count[i]+(tX[i,col] == ZERO_NAN)
+    return np.c_[tX, nan_count]
+
 def standardize(x, mean_x=None, std_x=None):
     """Standardize the original data set."""
     if mean_x is None:
@@ -55,6 +74,29 @@ def sanitize_NaN(tX,median_vec=None):
     for j,row in enumerate(zero_NaN_table):
         x[:,row][np.where(x[:,row] == ZERO_NAN)] = median_vec[i+j+1]
     return x, median_vec
+
+### FUNCTION FOR GRADIENT DESCENT
+
+def generate_initial_w(tX):#, sanatization_vec=None):
+    """
+    Generates an initial guess, which is a median of each column in the data. 
+    @param tX : the sanatized raw data
+    @return: a vector wich contains a median of each row
+    """
+    #san_idx = np.array([0,4,5,6,12,23,24,25,26,27,28,29])
+    initial_w = np.zeros(tX.shape[1])
+    # generate a median for each row
+    #if sanatization_vec is None:
+    for col in range(tX.shape[1]):
+        initial_w[col] = np.median(tX[:,col])
+    #else:
+    #    for col in range(tX.shape[1]):
+    #        if col in san_idx:
+    #            initial_w[col] = 
+    #        else:
+    #            initial_w[col] = np.median(tX[:,col])
+    return initial_w
+        
 
 
 ### FUNCTION FOR CROSS VALIDATION
