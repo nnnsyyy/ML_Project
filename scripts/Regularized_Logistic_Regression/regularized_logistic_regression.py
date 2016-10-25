@@ -156,6 +156,9 @@ def cross_validation_lr(y, x, k_indices, k, gamma,lambda_,max_iters, degree):
 
     #2. WE FORMAT THE DATA            
     #we sanitize and standardize our training data here, and apply the same median, mean and variance to the testing data  
+    x_train = count_NaN(x_train)
+    x_test = count_NaN(x_test)    
+    
     x_train,median_train = sanitize_NaN(x_train)
     x_test,median_test = sanitize_NaN(x_test,median_train)
     

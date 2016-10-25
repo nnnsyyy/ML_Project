@@ -42,6 +42,7 @@ def run():
     
     #3. TRAIN THE MODEL
     #Let us now clean the input
+    tX = count_NaN(tX)
     tX,median_tr = sanitize_NaN(tX)
     tX,mean_tr,std_tr = standardize(tX)
     tX = build_poly(tX,degree)
@@ -56,6 +57,7 @@ def run():
     y_test, tX_test, ids_test = load_csv_data(DATA_TEST_PATH)
     print('DONE')
     
+    tX_test = count_NaN(tX_test)
     tX_test_sorted,median_vec = sanitize_NaN(tX_test,median_tr)
     tX_test_sorted,mean_tr,std_tr = standardize(tX_test_sorted,mean_tr,std_tr)
     tX_test_sorted = build_poly(tX_test_sorted, degree)

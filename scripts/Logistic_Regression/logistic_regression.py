@@ -46,7 +46,7 @@ def logistic_regression(y, tx, gamma,max_iters):
 
     # build tx
     w = np.zeros((tx.shape[1]))
-
+    #w = generate_initial_w(tx)
     # start the logistic regression
     for iter in range(max_iters):
         # get loss and update w.
@@ -151,6 +151,9 @@ def cross_validation_lr(y, x, k_indices, k, gamma,max_iters, degree):
 
     #2. WE FORMAT THE DATA            
     #we sanitize and standardize our training data here, and apply the same median, mean and variance to the testing data  
+
+    x_train = count_NaN(x_train)
+    x_test = count_NaN(x_test)    
     x_train,median_train = sanitize_NaN(x_train)
     x_test,median_test = sanitize_NaN(x_test,median_train)
     
