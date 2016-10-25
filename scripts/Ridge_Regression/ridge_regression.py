@@ -5,7 +5,7 @@ import numpy as np
 from proj1_helpers import predict_labels
 from build_polynomial import build_poly
 from plots import cross_validation_visualization
-from ..helpers.helpers import *
+from helpers import *
 
 def ridge_regression(y, tx, lambda_):
     """ Implements ridge regression.
@@ -102,6 +102,9 @@ def cross_validation_rr(y, x, k_indices, k, lambda_, degree):
 
     #2. WE FORMAT THE DATA            
     #we sanitize and standardize our training data here, and apply the same median, mean and variance to the testing data  
+    x_train = count_NaN(x_train)
+    x_test = count_NaN(x_test)
+    
     x_train,median_train = sanitize_NaN(x_train)
     x_test,median_test = sanitize_NaN(x_test,median_train)
     
