@@ -1,0 +1,6 @@
+    seed = 1
+    
+    #not possible yet to run polynomial  degrees at the same time.
+    degrees = np.array([11])
+    k_fold = 4
+    lambdas = np.logspace(-0,1,2)

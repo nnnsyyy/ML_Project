@@ -24,14 +24,15 @@ def calculate_loss(y, tx, w):
     #print(max(xw), min(xw))
     #xw = np.where(xw >  709,  709, xw)
     #print(max(xw), min(xw))
-    res = np.log(1+np.exp(xw))
-    res = np.where(res == float('inf'),  xw, res)
-    return np.sum(res) - np.dot(y,xw)
+    res = np.where(xw <= 20, np.log(1+np.exp(xw)),xw)
+    #res = np.log(1+np.exp(xw))
+    #res = np.where(res == float('inf'),  xw, res)
+    return 1/len(y)*(np.sum(res) - np.dot(y,xw))
     
 def calculate_gradient(y, tx, w):
     """compute the gradient of loss."""
     sigma = np.squeeze(sigmoid(np.dot(tx,w)))
-    return np.dot(tx.T,sigma-y)
+    return 1/len(y)*np.dot(tx.T,sigma-y)
 
 def learning_by_gradient_descent(y, tx, w, gamma):
     """
@@ -40,15 +41,15 @@ def learning_by_gradient_descent(y, tx, w, gamma):
     """
     #print('Init shape w',w.shape,'Shape of y',y.shape,'Shape of x', tx.shape)
     #print('Test',np.squeeze(np.dot(tx,w)).shape,y.shape)
-    restore_these_settings = np.geterr()
+    #restore_these_settings = np.geterr()
 
-    temp_settings = restore_these_settings.copy()
-    temp_settings["over"] = "ignore"
-    temp_settings["under"] = "ignore"
+    #temp_settings = restore_these_settings.copy()
+    #temp_settings["over"] = "ignore"
+    #temp_settings["under"] = "ignore"
 
-    np.seterr(**temp_settings)
+    #np.seterr(**temp_settings)
     loss = calculate_loss(y,tx,w)
-    np.seterr(**restore_these_settings)    
+    #np.seterr(**restore_these_settings)    
     
     #print(loss)
     #print(w)
