@@ -51,7 +51,7 @@ def regularized_logistic_regression(y, tx, gamma,lambda_,max_iters):
     # build tx
     w = np.zeros((tx.shape[1]))
     #from results import weights as weights_rlr
-    #w = weights_rlr
+    #Tw = weights_rlr
     
 
     # start the logistic regression
