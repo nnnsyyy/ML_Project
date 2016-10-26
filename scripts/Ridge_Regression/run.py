@@ -24,7 +24,7 @@ def run():
     #not possible yet to run polynomial  degrees at the same time.
     degrees = np.array([11])
     k_fold = 4
-    lambdas = np.logspace(-0,1,2)
+    lambdas = np.logspace(-2,2,50)
     
     #1. LOAD THE DATA
     print('LOADING THE DATA: ',end=" ")
@@ -45,20 +45,23 @@ def run():
     tX = build_poly(tX,degree)
 
     weights = ridge_regression(y, tX, lambda_)
+        
+    with open('weights.py', 'w') as f:
+       f.write('weights = %s' % weights)
 
     print('Weights on whole set\n',weights)
     
     #4. TEST THE MODEL AND EXPORT THE RESULTS
     DATA_TEST_PATH = '../data/test.csv'  # Download train data and supply path here 
     print('IMPORTING TESTING DATA :',end=" ")
-    y_test, tX_test, ids_test = ph.load_csv_data(DATA_TEST_PATH)
+    y_test, tX_test, ids_test = load_csv_data(DATA_TEST_PATH)
     print('DONE')
     
     tX_test_sorted = count_NaN(tX_test)
     tX_test_sorted,median_vec = sanitize_NaN(tX_test_sorted,median_tr)
     tX_test_sorted,mean_tr,std_tr = standardize(tX_test_sorted,mean_tr,std_tr)
     tX_test_sorted = build_poly(tX_test_sorted, degree)
-    OUTPUT_PATH = 'results/output_sanitized_normalization_degree11_lambda_finer.csv' # Fill in desired name of output file for submission
+    OUTPUT_PATH = 'results/output_sanitized_normalization_degree11_12_13_lambda_2_30.csv' # Fill in desired name of output file for submission
     print('EXPORTING TESTING DATA WITH PREDICTIONS :',end=" ")
     y_pred = predict_labels(np.array(weights), np.array(tX_test_sorted))
     create_csv_submission(ids_test, y_pred, OUTPUT_PATH)

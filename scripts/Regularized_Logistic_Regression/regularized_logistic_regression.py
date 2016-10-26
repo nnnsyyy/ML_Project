@@ -50,14 +50,17 @@ def regularized_logistic_regression(y, tx, gamma,lambda_,max_iters):
 
     # build tx
     w = np.zeros((tx.shape[1]))
+    #from results import weights as weights_rlr
+    #w = weights_rlr
+    
 
     # start the logistic regression
     for iter in range(max_iters):
         # get loss and update w.
         loss, w = learning_by_gradient_descent(y, tx, w, gamma,lambda_)
         # log info
-        #if iter % 50 == 0:
-        print("\t\tCurrent iteration={i}, the loss={l}".format(i=iter, l=loss))
+        if iter % 500 == 0:
+            print("\t\tCurrent iteration={i}, the loss={l}".format(i=iter, l=loss))
         # converge criteria
         losses.append(loss)
         if (len(losses) > 1): 

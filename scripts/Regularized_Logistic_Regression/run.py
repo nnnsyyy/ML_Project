@@ -22,11 +22,11 @@ def run():
     seed = 1
     
     #not possible yet to run polynomial  degrees at the same time.
-    degrees = np.array([2])
+    degrees = np.array([3])
     k_fold = 4
-    gamma = 1e-7#[0.0000000000001]#np.logspace(-3,-2,2)
-    lambdas = np.logspace(-3,2,10)
-    max_iters = 2000
+    gamma = 1e-6#[0.0000000000001]#np.logspace(-3,-2,2)
+    lambdas = np.logspace(0,2,10)
+    max_iters = 10000
     #1. LOAD THE DATA
     print('LOADING THE DATA: ',end=" ")
     DATA_TRAIN_PATH = '../data/train.csv' # TODO: download train data and supply path here 
@@ -61,7 +61,7 @@ def run():
     tX_test_sorted,median_vec = sanitize_NaN(tX_test,median_tr)
     tX_test_sorted,mean_tr,std_tr = standardize(tX_test_sorted,mean_tr,std_tr)
     tX_test_sorted = build_poly(tX_test_sorted, degree)
-    OUTPUT_PATH = 'results/output_sanitized_normalization_test_deg_2_gamma_8.csv' # Fill in desired name of output file for submission
+    OUTPUT_PATH = 'results/output_sanitized_normalization_iter_3_4_7_11.csv' # Fill in desired name of output file for submission
     print('EXPORTING TESTING DATA WITH PREDICTIONS :',end=" ")
     y_pred = predict_labels(np.array(weights), np.array(tX_test_sorted))
     create_csv_submission(ids_test, y_pred, OUTPUT_PATH)

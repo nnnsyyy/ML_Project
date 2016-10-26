@@ -24,7 +24,7 @@ def run():
     #not possible yet to run polynomial  degrees at the same time.
     degrees = np.array([2])
     k_fold = 4
-    gammas = [1e-5]#[0.0000000000001]#np.logspace(-3,-2,2)
+    gammas = [1e-5,1e-6,1e-7]#[0.0000000000001]#np.logspace(-3,-2,2)
     max_iters = 2000
     #1. LOAD THE DATA
     print('LOADING THE DATA: ',end=" ")
