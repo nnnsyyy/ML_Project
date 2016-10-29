@@ -23,7 +23,7 @@ def least_squares_GD(y, tx, initial_w, max_iters, gamma):
 
 ### STOCHASTIC GRADIENT DESCENT
 
-def stochastic_gradient_descent(y, tx, initial_w, max_iters, gamma):
+def least_squares_SGD(y, tx, initial_w, max_iters, gamma):
     """
     TODO
     """
