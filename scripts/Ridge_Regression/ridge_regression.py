@@ -17,7 +17,7 @@ def ridge_regression(y, tx, lambda_):
     """
     return np.linalg.solve(np.dot(tx.T,tx)+lambda_*np.identity(tx.shape[1]),np.dot(tx.T,y))#/(2*len(tx))
 
-def cross_validation(y,tX,degrees,lambdas,k_fold,seed):
+def cross_validation(y,tX,degrees,lambdas,k_fold,seed,split=""):
     """
         Uses the cross_validation to find the best of the the given parameters and returns the best result (degree, error and lambda)
         The best result will be the one associated with the lambda minimizing the classification error, i.e. the percentage of failures in the retrieval process.
@@ -62,11 +62,11 @@ def cross_validation(y,tX,degrees,lambdas,k_fold,seed):
             print('Percentage of classification error : ',class_error_te[i])
         best_error[j] = min(class_error_te)
         best_lambda[j] = lambdas[int(np.argmin(class_error_te))]
-        cross_validation_visualization(lambdas, class_error_tr, class_error_te,degree)
+        cross_validation_visualization(lambdas, class_error_tr, class_error_te,degree,split)
         
     best_error_final = min(best_error)
-    print(best_error_final.shape)
-    print(np.argmin(best_error))
+    #print(best_error_final.shape)
+    #print(np.argmin(best_error))
     best_lambda_final = best_lambda[int(np.argmin(best_error))]
     best_degree_final = degrees[int(np.argmin(best_error))]
         

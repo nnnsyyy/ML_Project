@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from proj1_helpers import *
 from ridge_regression import *
+from helpers import *
 
 def run():
     """ Ridge regression running script. It is self-contained.
@@ -13,10 +14,16 @@ def run():
                 - degrees : the degrees of the polynomial we want to test on.
                 - lambdas : the range of lambdas we want to do grid search on.
             1. Load the training data.
-            2. Use cross_validation to estimate the error in order to pick the lambda and polynomial degree with the least error.
-            3. Train the model on the best polynomial degree and lambda.
-            4. Make prediction on the testing data.
+            2. Splits the dataset
+            3.Use cross_validation to estimate the error in order to pick the lambda and polynomial degree with the least error for
+                each split of our data and stores the best w and lambda for each split.
+            4. Train each model on the best polynomial degree and lambda.
+            5. Make prediction on the testing data.
+                a. Split them
+                b. Do the prediction on each small model
+                c. Merge the prediction and export it to a .csv file
     """
+    
     
     #0. DEFINE PARAMETERS FOR OUR RUN
     seed = 1
@@ -24,46 +31,109 @@ def run():
     #not possible yet to run polynomial  degrees at the same time.
     degrees = np.array([11])
     k_fold = 4
-    lambdas = np.logspace(-2,2,50)
-    
+    lambdas = np.logspace(-2,2,3)
+    file = "backup/test_split_data"
+    export_comment="test_split_data_11_4_2_2"
     #1. LOAD THE DATA
     print('LOADING THE DATA: ',end=" ")
     DATA_TRAIN_PATH = '../data/train.csv' # TODO: download train data and supply path here 
     y, tX, ids = load_csv_data(DATA_TRAIN_PATH)
     print('DONE')
     
-    #2. RUN CROSS VALIDATION TO GET BEST LAMBDA
-    print('CROSS VALIDATION')
-    degree, lambda_, error = cross_validation(y,tX,degrees,lambdas,k_fold,seed)
-
+    #2. SPLITTING THE DATA
     
-    #3. TRAIN THE MODEL
-    #Let us now clean the input
-    tX = count_NaN(tX)
-    tX,median_tr = sanitize_NaN(tX)
-    tX,mean_tr,std_tr = standardize(tX)
-    tX = build_poly(tX,degree)
-
-    weights = ridge_regression(y, tX, lambda_)
+    print('SPLITTING THE DATA: ',end=" ")  
+    degree_split = list()
+    weight_split = list()
+    error_split = list()
+    lambda_split = list()
+    median_split = list()
+    mean_split = list()
+    std_split = list()
+    
+    y_split,tx_split,id_split = split_dataset(y,tX,ids)
+    print('DONE')   
+    #3. RUN CROSS VALIDATION TO GET BEST LAMBDA
+    
+    for split,(y_s,tx_s,id_s) in enumerate(zip(y_split,tx_split,id_split)):
+        y_s = np.squeeze(y_s)
+        tx_s = np.squeeze(tx_s)
+        print('\n\tCROSS VALIDATION FOR SPLIT NUMBER',split)
+        #Perform cross validation and save best output
+        best_degree, best_lambda_, best_error = cross_validation(y_s,tx_s,degrees,lambdas,k_fold,seed,split)
+        degree_split.append(best_degree)
+        lambda_split.append(best_lambda_)  
+        error_split.append(best_error)
         
-    with open('weights.py', 'w') as f:
-       f.write('weights = %s' % weights)
-
-    print('Weights on whole set\n',weights)
+        #4. TRAIN THE MODELS
+        #Let us now clean the input
+        tx_s = count_NaN(tx_s)
+        tx_s,median_tr = sanitize_NaN(tx_s)
+        tx_s,mean_tr,std_tr = standardize(tx_s)
+        tx_s = build_poly(tx_s,best_degree)
+        print('Size of the vectors',y_s.shape,tx_s.shape)
+        weights = ridge_regression(y_s, tx_s, best_lambda_)
+        
+        #Save the calculation of the weights,median,mean,std for each model
+        weight_split.append(weights)
+        median_split.append(median_tr)
+        mean_split.append(mean_tr)
+        std_split.append(std_split)
+        
+    #Saving to file 
+    #np.savetxt(file+'degrees',degree_split)
+    #np.savetxt(file+'weights',weight_split) 
+    #np.savetxt(file+'errors',error_split)
+    #np.savetxt(file+'lambdas',lambda_split)
+    #np.savetxt(file+'medians',median_split)
+    #np.save_txt(file+'means',mean_split)
+    #np.save_txt(file+'stds',std_split)
     
-    #4. TEST THE MODEL AND EXPORT THE RESULTS
+    #print('Weights on whole set\n',weights_split)
+    print('Degrees',degree_split)
+    print('Lambdas',lambda_split)
+    
+    #5. TEST THE MODEL AND EXPORT THE RESULTS
     DATA_TEST_PATH = '../data/test.csv'  # Download train data and supply path here 
-    print('IMPORTING TESTING DATA :',end=" ")
+    print('\nIMPORTING TESTING DATA :',end=" ")
     y_test, tX_test, ids_test = load_csv_data(DATA_TEST_PATH)
     print('DONE')
     
-    tX_test_sorted = count_NaN(tX_test)
-    tX_test_sorted,median_vec = sanitize_NaN(tX_test_sorted,median_tr)
-    tX_test_sorted,mean_tr,std_tr = standardize(tX_test_sorted,mean_tr,std_tr)
-    tX_test_sorted = build_poly(tX_test_sorted, degree)
-    OUTPUT_PATH = 'results/output_sanitized_normalization_degree11_12_13_lambda_2_30.csv' # Fill in desired name of output file for submission
+    #5.a. Splitting the testing data
+    print('SPLITTING TESTING DATA :',end=" ")
+    y_test_split,tx_test_split,id_test_split = split_dataset(y_test,tX_test,ids_test)    
+    print('DONE')    
+    #5.b. prediction on each model
+    y_pred = list()
+    
+    for split,(y_test_s,tx_test_s,id_test_s) in enumerate(zip(y_test_split,tx_test_split,id_test_split)):  
+        print('PREDICTION FOR TESTING DATA SPLIT NUMBER',split)
+        
+        #Formatting to the correct datatype
+        y_test_s = np.squeeze(y_test_s)
+        tx_test_s = np.squeeze(tx_test_s)
+        id_test_s = np.squeeze(id_test_s)
+        print('Size of the vectors',y_test_s.shape,tx_test_s.shape) 
+        #Formatting the data themselves
+        print('Counting NaN',end=' .')
+        tx_test_s = count_NaN(tx_test_s)
+        print('Sanitizing',end = ' .')
+        tx_test_s,median_vec = sanitize_NaN(tx_test_s,median_split[split])
+        print('Standardizing',end = ' .')
+        tx_test_s,mean_te,std_te = standardize(tx_test_s,mean_split[split],std_split[split])
+        print('Building polynomial basis',end = ' .')        
+        tx_test_s = build_poly(tx_test_s, degrees_split[split])
+        
+        #Prediction
+        y_pred.append(predict_labels(np.array(weight_split[split]), np.array(tx_test_new)))   
+    
+    print('MERGING TESTING DATA',end="")
+    y_pred_merged, ids_merged = merge_dataset(y_pred,id_test_split)  
+    print('DONE')
+    
+    OUTPUT_PATH = 'results/output_sanitized_normalization_'+export_comment+'.csv' 
     print('EXPORTING TESTING DATA WITH PREDICTIONS :',end=" ")
-    y_pred = predict_labels(np.array(weights), np.array(tX_test_sorted))
+ 
     create_csv_submission(ids_test, y_pred, OUTPUT_PATH)
     print('DONE')
 

@@ -4,17 +4,25 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def cross_validation_visualization(lambds, mse_tr, mse_te,degree):
+def cross_validation_visualization(lambds, mse_tr, mse_te,degree,split):
     """visualization the curves of mse_tr and mse_te."""
-    label_train = 'train error - degree ' + str(degree)
-    label_test = 'test error - degree ' + str(degree)
-    plt.semilogx(lambds, mse_tr, marker=".", color='b', label=label_train)
-    plt.semilogx(lambds, mse_te, marker=".", color='r', label=label_test)
+    label_train = 'train error - degree ' + str(degree) + '-split ' + str(split)
+    label_test = 'test error - degree ' + str(degree) + '-split ' + str(split)
+    fig = plt.figure()
+    ax = plt.subplot(111)
+    ax.semilogx(lambds, mse_tr, marker=".", color='b', label=label_train)
+    ax.semilogx(lambds, mse_te, marker=".", color='r', label=label_test)
     plt.xlabel("lambda")
-    plt.ylabel("rmse")
-    plt.title("cross validation")
-    plt.legend(loc=2)
-    plt.grid(True)
+    plt.ylabel("Classification error")
+    plt.title("Cross validation")
+    
+    # Shrink current axis by 20%
+    box = ax.get_position()
+    ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
+    
+    # Put a legend to the right of the current axis
+    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    ax.grid(True)
     plt.savefig("cross_validation")
 
 
