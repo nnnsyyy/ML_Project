@@ -26,11 +26,11 @@ def run():
     seed = 1
     
     #not possible yet to run polynomial  degrees at the same time.
-    degrees = np.array([[9,10,11,12,13,14],[9,10,11,12,13,14],[9,10,11,12,13,14],[9,10,11,12,13,14]])
+    degrees = np.array([[8,9,10,11],[8,9,10,11,12,13],[13,14,15,16],[12,13,14,15]])
     k_fold = 4
-    lambdas = [np.logspace(-4,3,30),np.logspace(-3,2,10),np.logspace(-1,3,20),np.logspace(-3,3,20)]
+    lambdas = [np.logspace(-2,1,30),np.logspace(-1,1,25),np.logspace(-1,3,25),np.logspace(0,2,25)]
 
-    export_file="test_split_data_param_4"
+    export_file="test_split_data_param_5_mse"
     #1. LOAD THE DATA
     print('LOADING THE DATA: ',end=" ")
     DATA_TRAIN_PATH = '../data/train.csv' # TODO: download train data and supply path here 
@@ -80,7 +80,7 @@ def run():
         
     print('Degrees',degree_split)
     print('Lambdas',lambda_split)
-    
+    print('Errors',error_split)
     #5. TEST THE MODEL AND EXPORT THE RESULTS
     prediction_data(median_split,mean_split,std_split,degree_split,weight_split,export_file)
 

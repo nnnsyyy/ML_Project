@@ -6,6 +6,7 @@ from proj1_helpers import predict_labels
 from build_polynomial import build_poly
 from plots import cross_validation_visualization
 from helpers import *
+from costs import compute_loss
 
 def ridge_regression(y, tx, lambda_):
     """ Implements ridge regression.
@@ -59,7 +60,7 @@ def cross_validation(y,tX,degrees,lambdas,k_fold,seed,split=""):
                 
             class_error_tr[i] = loss_tr_sum/k_fold
             class_error_te[i] = loss_te_sum/k_fold
-            print('Percentage of classification error : ',class_error_te[i])
+            print('Classification error : ',class_error_te[i])
         best_error[j] = min(class_error_te)
         best_lambda[j] = lambdas[int(np.argmin(class_error_te))]
         cross_validation_visualization(lambdas, class_error_tr, class_error_te,degree,split)
@@ -121,8 +122,8 @@ def cross_validation_rr(y, x, k_indices, k, lambda_, degree):
     w_rr = ridge_regression(y_train,x_train_poly,lambda_)
     
     # calculate the classification error for train and test data:
-    loss_tr= sum(abs(y_train-predict_labels(w_rr,x_train_poly)))/(2*len(y_train))
-    loss_te = sum(abs(y_test-predict_labels(w_rr,x_test_poly)))/(2*len(y_test))
+    loss_tr= sum(abs(y_train-predict_labels(w_rr,x_train_poly)))/(2*len(y_train))#compute_loss(y_train,x_train_poly,w_rr)#
+    loss_te = sum(abs(y_test-predict_labels(w_rr,x_test_poly)))/(2*len(y_test))#compute_loss(y_test,x_test_poly,w_rr)#
     
     #MSE error computed here, as the RMSE error is not summable.
     #loss_tr = 2*compute_mse(y_train,x_train_poly,w_rr)
