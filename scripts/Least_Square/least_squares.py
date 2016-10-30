@@ -13,4 +13,5 @@ def least_squares(y, tx):
     #x_inv=np.linalg.inv(np.dot(tx.T,tx))
     xtx=np.dot(tx.T,tx)
     w = np.linalg.solve(xtx, np.dot(tx.T,y))
-    return w
+    loss = co.compute_loss(y, tx, w)
+    return w, loss
