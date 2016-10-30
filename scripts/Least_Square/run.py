@@ -25,7 +25,7 @@ def run():
     tX,median_tr = sanitize_NaN(tX)
     tX,mean_tr,std_tr = standardize(tX)
 
-    weights = least_squares(y, tX)
+    weights, loss = least_squares(y, tX)
 
     print('Weights on whole set\n',weights)
     
