@@ -31,11 +31,14 @@ def least_squares_SGD(y, tx, initial_w, max_iters, gamma):
 
     w = initial_w
     n_iter = 0
+    seed = 1
+    batch_size = 1
     
     while(n_iter < max_iters):
-        for minibatch_y, minibatch_tx in batch_iter(y, tx, 1, shuffle):
+        for minibatch_y, minibatch_tx in batch_iter(y, tx, seed, batch_size, shuffle):
             w = w - gamma * sgd_h.compute_stoch_gradient(minibatch_y, minibatch_tx, w)
             loss = co.compute_loss(minibatch_y, minibatch_tx, w)
+            print("Stochastic Gradient Descent({bi}/{ti}): loss={l}".format(bi = n_iter, ti = max_iters - 1, l = loss))
             n_iter += 1
             if(n_iter >= max_iters):
                 return (w, loss)
