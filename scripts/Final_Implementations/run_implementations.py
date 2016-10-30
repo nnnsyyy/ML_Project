@@ -142,7 +142,7 @@ def lr_run(initial_w, max_iters, gamma):
 
 
 # regularized logistic regression
-def run(lambda_, initial_w, max_iters, gamma):
+def rlr_run(lambda_, initial_w, max_iters, gamma):
     """ Regularized logistic regression running script. It is self-contained.
         Complete the whole pipeline of the simulation. The parameters are given in the first part, then the whole simulation takes part in 3 steps :
             1. Load the training data.
