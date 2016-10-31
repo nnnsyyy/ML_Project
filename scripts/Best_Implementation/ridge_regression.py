@@ -5,7 +5,7 @@ import numpy as np
 from proj1_helpers import predict_labels
 from build_polynomial import build_poly
 from helpers import *
-from figures import *
+##from figures import *
 
 
 def ridge_regression(y, tx, lambda_):
@@ -16,13 +16,14 @@ def ridge_regression(y, tx, lambda_):
         @return : function that computes the weights that best fit the data given as input
     
     """
-    return np.linalg.solve(np.dot(tx.T,tx)+lambda_*np.identity(tx.shape[1]),np.dot(tx.T,y))#/(2*len(tx))
+    return np.linalg.solve(np.dot(tx.T,tx)+lambda_*np.identity(tx.shape[1]),np.dot(tx.T,y))
 
 def cross_validation(y,tX,degrees,lambdas,k_fold,seed,split=""):
     """
         Uses the cross_validation to find the best of the the given parameters and returns the best result (degree, error and lambda)
         The best result will be the one associated with the lambda minimizing the classification error, i.e. the percentage of failures in the retrieval process.
         Note that we give the RAW data to the cross_validation, without any transformation on them.
+        It is also possible to have an exported image of the cross validation, done by uncommenting the relevant line, which are commented twice
         @param y : raw output variable 
         @param tx :raw input variable, might be a polynomial basis obtained from the input x
         @param degrees : a vector containing the different polynomial degrees for the polynomial basis (i.e. we want to return the degree that best fits the data)
@@ -41,27 +42,21 @@ def cross_validation(y,tX,degrees,lambdas,k_fold,seed,split=""):
     best_lambda = np.zeros(len(degrees))
     best_error = np.zeros(len(degrees))
     
-    
-    
-    
-    
-
-    
-    #Set the number of axis ticks that we want onto each axis of the figure -- more complex in case of errorbars       
-    #ax3 = myfig.set_ticks_errorbars(ax3, [.1,.9], nb_errors,9,4)
-    
-    #  
-    
-    fig, ax  = newfig(.5)
-    ax.set_xlabel('Lambda')
-    ax.set_ylabel('Classification error')
-    name = '_'
-    color = ['b','r','k','g']
+    #Visualisation part
+    ##fig, ax  = newfig(.5)
+    ##ax.set_xlabel('Lambda')
+    ##ax.set_ylabel('Classification error')
+    ##name = '_'
+    ##color = ['b','r','k','g','c','m']
     for j,degree in enumerate(degrees):
-        name = name + str(degree) + '_'
+
         print('\n Testing for a polynomial of degree ', degree)
-        label_train = 'train error\ndegree ' + str(degree) + '-split ' + str(split)
-        label_test = 'test error\ndegree ' + str(degree) + '-split ' + str(split)
+        
+        ##name = name + str(degree) + '_'        
+        ##label_train = 'train error\ndegree ' + str(degree) + '-split ' + str(split)
+        ##label_test = 'test error\ndegree ' + str(degree) + '-split ' + str(split)
+        
+        
         #Training and testing errors for each lambda, so we are able to visualize them afterwards.
         class_error_tr = np.zeros(len(lambdas))
         class_error_te = np.zeros(len(lambdas))
@@ -83,15 +78,14 @@ def cross_validation(y,tX,degrees,lambdas,k_fold,seed,split=""):
         best_error[j] = min(class_error_te)
         best_lambda[j] = lambdas[int(np.argmin(class_error_te))]
         
-        ax.semilogx(lambdas, class_error_tr, marker=".", color= color[2*j], label=label_train)
-        ax.semilogx(lambdas, class_error_te, marker=".", color = color[2*j+1], label=label_test)
-        lgd = ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-        ax.grid(True)
-        #cross_validation_visualization(lambdas, class_error_tr, class_error_te,degree,split)
-        
+        #Visualisation part
+        ##ax.semilogx(lambdas, class_error_tr, marker=".", color= color[2*j], label=label_train)
+        ##ax.semilogx(lambdas, class_error_te, marker=".", color = color[2*j+1], label=label_test)
+        ##lgd = ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+        ##ax.grid(True)
+       
     best_error_final = min(best_error)
-    #print(best_error_final.shape)
-    #print(np.argmin(best_error))
+
     best_lambda_final = best_lambda[int(np.argmin(best_error))]
     best_degree_final = degrees[int(np.argmin(best_error))]
         
@@ -99,8 +93,9 @@ def cross_validation(y,tX,degrees,lambdas,k_fold,seed,split=""):
     print('Best error :',best_error_final)
     print('Best lambda :',best_lambda_final)
     
-    plt.tight_layout() 
-    savefig('Cross_validation'+name,lgd)  
+    #Visualisation part
+    ##plt.tight_layout() 
+    ##savefig('Cross_validation'+name,lgd)  
     return best_degree_final,best_lambda_final,best_error_final
 
 
@@ -142,17 +137,13 @@ def cross_validation_rr(y, x, k_indices, k, lambda_, degree):
     # form data with polynomial degree:
     x_train_poly = build_poly(x_train,degree)
     x_test_poly = build_poly(x_test,degree)
-    #print('Shape of polynomial training date :', x_train_poly.shape)
-    
+   
     #3. WE RUN THE MODEL AND COMPUTE THE ERROR
-    # ridge regression: 
+        # ridge regression: 
     w_rr = ridge_regression(y_train,x_train_poly,lambda_)
     
     # calculate the classification error for train and test data:
     loss_tr= sum(abs(y_train-predict_labels(w_rr,x_train_poly)))/(2*len(y_train))
     loss_te = sum(abs(y_test-predict_labels(w_rr,x_test_poly)))/(2*len(y_test))
     
-    #MSE error computed here, as the RMSE error is not summable.
-    #loss_tr = 2*compute_mse(y_train,x_train_poly,w_rr)
-    #loss_te = 2*compute_mse(y_test,x_test_poly,w_rr)
-    return loss_tr, loss_te#, loss_tr_class,loss_te_class
+    return loss_tr, loss_te

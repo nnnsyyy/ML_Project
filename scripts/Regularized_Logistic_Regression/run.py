@@ -5,7 +5,7 @@ from proj1_helpers import *
 from regularized_logistic_regression import *
 
 def run():
-    """ L regression running script. It is self-contained.
+    """ Ridge regression running script. It is self-contained.
         Complete the whole pipeline of the simulation. The parameters are given in the first part, then the whole simulation takes part in 4 steps :
             0. Set the parameters :
                 - seed :    seed for the random number generation.
@@ -26,7 +26,7 @@ def run():
     k_fold = 4
     gamma = 1e-6#[0.0000000000001]#np.logspace(-3,-2,2)
     lambdas = np.logspace(0,2,10)
-    max_iters = 10000
+    max_iters = 2000
     #1. LOAD THE DATA
     print('LOADING THE DATA: ',end=" ")
     DATA_TRAIN_PATH = '../data/train.csv' # TODO: download train data and supply path here 

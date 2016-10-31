@@ -24,10 +24,9 @@ def run():
     #0. DEFINE PARAMETERS FOR OUR RUN
     seed = 1
     
-    #not possible yet to run polynomial  degrees at the same time.
-    degrees = np.array([[10,11],[10,11,12],[14,15],[12,13]])
+    degrees = np.array([[9,10,11,12,13,14],[9,10,11,12,13,14],[9,10,11,12,13,14],[9,10,11,12,13,14]])
     k_fold = 4
-    lambdas = [np.logspace(-2,2,50),np.logspace(-2,2,50),np.logspace(-2,2,50),np.logspace(-2,2,50)]
+    lambdas = [np.logspace(-3,3,20),np.logspace(-3,3,20),np.logspace(-3,3,20),np.logspace(-3,3,20)]
 
     export_file="test_split_data_param_5"
     #1. LOAD THE DATA
@@ -38,7 +37,9 @@ def run():
     
     #2. SPLITTING THE DATA
     
-    print('SPLITTING THE DATA: ',end=" ")  
+    print('SPLITTING THE DATA: ',end=" ") 
+    #We save all the degrees, weights, errors, lambdas, medians, means and stds that are computed
+    #for each split in a list, as we need to apply them to our transformed testing data later on.
     degree_split = list()
     weight_split = list()
     error_split = list()
@@ -98,7 +99,7 @@ def prediction_data(median_split,mean_split,std_split,degrees_split,weight_split
         @param degrees_split : vector containing the best degree for the polynomial basis of each of the splits
         @param weight_split : tuple containing the vectors of weights computed on each of the splits in training data
         @param export_file : the string we add to the export data to make sure it is uniquely identifiable
-        """
+    """
     DATA_TEST_PATH = '../data/test.csv'  # Download train data and supply path here 
     print('\nIMPORTING TESTING DATA :',end=" ")
     y_test, tX_test, ids_test = load_csv_data(DATA_TEST_PATH)
