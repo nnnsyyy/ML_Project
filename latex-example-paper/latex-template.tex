@@ -14,24 +14,30 @@
 \maketitle
 
 \section{Introduction}
-This report will present the way we approached the problem of the classification of the Higgs Boson. We will first go through the transformation that we applied to the data, then move to the different methods we used to try to solve the problem and finally will speak in greater detail about our best submission.
+This report overviews the way we approached the problem of the classification of the Higgs Boson. We first cover the transformation that we applied to the data, then present the different methods we applied to try to solve the problem and finally discuss in greater detail our best submission.
+
 \section{Formatting the Data}
-The data we were given about the Higgs Boson contains 30 columns of measurements. Many of those columns contain NaNs, so it is needed to clean them before using them to predict the outcome of the experience on other data, in order to get unbiased results, as those NaNs, taking either the values $-999$ or $0$, are strong outliers. We will briefly describe all the techniques we used in order to format our data.
+The data we were given about the Higgs Boson contains 30 columns of measurements, some of which are NaNs. In order to avoid biased results, it is necessary to clean those NaNs(either $-999$ or $0$) before utilizing the data. We will briefly discuss the techniques we used to achieve this.
 
-\textbf{1. Counting the NaNs :} First of all, we know that we will eventually get rid of the NaN values in our data, and we want to keep the information that they represent. Maybe having a NaN in a given column is correlated to the measurement of a Higgs Boson. What we did is add a column to our data which kept track of the number of NaN found in each row.
+\subsubsection{Counting the NaNs}
+An NaN in a given column could be correlated to the measurement of a Higgs Boson.  Adding a column which keeps track of the number of NaNs found in each row to the data allows us to safely remove NaNs without losing the information that they represent. 
 
-\textbf{2. Sanitation of the Data :} Now that the information about the NaN is stored in our data, we can safely remove them. We did the following for each column of our data which contained some invalid data. We first retrieved all the "valid" points in the column, i.e. those who did not have a NaN value, and then replaced the value of the unavailable points with the median of the valid points.  Note that we used the median and not the mean because the median is robust to outliers. Indeed, imagine we had all the points in the region $-1$ to $1$,the NaNs to $-999$ and an outlier at a very large value, then taking the average of the valid data including this large outlier would largely influence the result, while taking the median would ignore this outlier. 
+\subsubsection{Removing the NaNs}
+For each column that contains an NaN we first retrieved all the non-NaN points in the column and find their median. We then simply replaced the NaNs with this value. We use the median and not the mean because the it is robust to outliers. Imagine having all the “valid” points in the region −1 to 1, the NaNs as −999 and an outlier at a very large value. This outlier would have a large effect on the mean of this example data, while having no effect on the median.
 
-\textbf{3. Standardization of the Data :} The second step in the formatting of our data was to standardize them. Having the gradient with the same magnitude in each direction yields a much faster convergence for the methods using gradient descent, like logistic regression. And it also turns out to be practical if we wish to construct a polynomial basis, as it will keep the large values of our data set bounded. It is important to note that in the case where a column has standard deviation $0$, i.e. all it values are the same, we then remove it from the data, as it contains no useful information.
+\subsubsection{Standardization of the Data}
+The third step in the formatting sequence of the data is to standardize it. Having the gradient with the same magnitude in every direction yields a faster convergence for the methods that make use of gradient descent, like logistic regression. It is also useful for when we wish to construct a polynomial basis, as it keeps the large values of our data set bounded. It is important to note that in the case where a column has standard deviation of 0, i.e. all of its values are the same, we remove it from the data, as it contains no useful information. 
 
-\textbf{4. Polynomial basis :} The last step in the formatting of our data was to take a polynomial basis of degree $D$ for our data. We did not add the cross terms of the form $x_1x_2x_3$ for polynomials of degree three, as this would have given far too much features for our model to fit. For a basis of degree $D$ and an input with $M$ features, our polynomial basis was of the form
+\subsubsection{Polynomial basis} 
+Finally we take a polynomial basis of degree D for the data. We did not add the cross terms of the form $x_1x_2x_3$ for polynomials of degree three as this would have given far too many features for our model to fit. For a basis of degree $D$ and an input with $M$ features, our polynomial basis was of the form 
 \begin{equation}
 \left[1 ~ \mathbf{x}_1 \cdots \mathbf{x}_N ~\mathbf{x}_1^2 \cdots \mathbf{x}_N^2 ~ \mathbf{x}_1^D \cdots \mathbf{x}_N^D \right] \mbox{ where } \mathbf{x}_i \in \mathbb{R}^M
 \end{equation}
-\textbf{5. Additional notice :} When we turn to prediction, we will apply the same transformation to our testing set, but we will not recompute the median, mean and standard deviation, we will apply those that we had found for the training set, because we would otherwise end up with a biased result.
+\subsubsection{Additional note}
+We apply the same transformation to our testing set, yet we do not recompute the median, mean and standard deviation. Instead we apply the values that we had found for the training set, otherwise we will end up with a biased result. 
 \section{Results}
 \subsection{Methodology}
-The methodology we followed to obtain our results was an extensive use of the cross validation while varying all the other parameters ($\lambda$ in the ridge regression as well as the polynomial degree) we had in a grid-search fashion. We would then choose the combination that yielded the minimal error, i.e. the smallest percentage of classification error. We did not iterate on $\gamma$ for the iterative methods, as the $\gamma$ will only change the speed of convergence of the method. We rather tried to pick on that seemed to work well and extended the number of maximal iterations, until convergence. 
+The methodology we followed to obtain our results was an extensive use of the cross validation while varying all the other parameters ($\lambda$ in the ridge regression as well as the polynomial degree) we had in a grid-search fashion. We would then choose the combination that yielded the minimal error, i.e. the smallest percentage of classification error. We did not iterate on $\gamma$ for the iterative methods, as the $\gamma$ will only change the speed of convergence of the method. Instead we tried to pick a $\gamma$ that seemed to work well and extended the number of maximal iterations until convergence.
 
 \subsection{General results and comments}
 Let us now present quickly some results that we obtained with each method. Note that, as the Ridge Regression stood quickly out as the best for our purpose, we did not extensively try to use the other methods, hence the results shown here for all other methods could easily be improved, and they are just present here for comparison's sake.
