@@ -112,7 +112,7 @@ def build_k_indices(y, k_fold, seed):
 
 ### FUNCTION FOR SGD
 
-def batch_iter(y, tx, batch_size, num_batches=None, shuffle=True):
+def batch_iter(y, tx, batch_size, seed, num_batches=None, shuffle=True):
     """
     Generate a minibatch iterator for a dataset.
     Takes as input two iterables (here the output desired values 'y' and the input data 'tx')
@@ -124,6 +124,7 @@ def batch_iter(y, tx, batch_size, num_batches=None, shuffle=True):
     """
     data_size = len(y)
     num_batches_max = int(np.ceil(data_size/batch_size))
+    np.random.seed(seed)
     if num_batches is None:
         num_batches = num_batches_max
     else:
