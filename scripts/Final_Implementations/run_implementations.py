@@ -3,9 +3,9 @@
 # gradient descent: gd_run(intial_w, max_iters, gamma)
 # stochastic gradient descent: sgd_run(intial_w, max_iters, gamma)
 # least squares: ls_run()
-# ridge regression: rr_run(lambda_)
-# logistic regression: lr_run(initial_w, max_iters, gamma)
-# regularized logistic regression: rlr_run(lambda_, initial_w, max_iters, gamma)
+# ridge regression: rr_run(lambda_, degree)
+# logistic regression: lr_run(initial_w, max_iters, gamma, degree)
+# regularized logistic regression: rlr_run(lambda_, initial_w, max_iters, gamma, degree)
 
 # all input files are stored in filefold '../data'
 # all output should be saved in filefold 'results', with the name 'output_(method_name).csv'

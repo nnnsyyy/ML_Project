@@ -3,6 +3,7 @@
 
 import numpy as np
 
+# Various cost functions
 
 def calculate_mse(e):
     """Calculate the mse for vector e."""
