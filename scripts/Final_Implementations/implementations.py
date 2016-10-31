@@ -3,6 +3,7 @@ import costs as co
 import gd_helpers as gd_h
 import sgd_helpers as sgd_h
 import lr_helpers as lr_h
+import rlr_helpers as rlr_h
 from helpers import *
 from proj1_helpers import *
 from build_polynomial import *
@@ -23,7 +24,8 @@ def least_squares_GD(y, tx, initial_w, max_iters, gamma):
     for n_iter in range(max_iters):
         w = w - gamma * gd_h.compute_gradient_MAE(y, tx, w)
         loss = co.compute_loss(y, tx, w)
-        print("Gradient Descent({bi}/{ti}): loss={l}".format(bi = n_iter, ti = max_iters - 1, l = loss))
+        if n_iter % 50 == 0:
+            print("Gradient Descent({bi}/{ti}): loss={l}".format(bi = n_iter, ti = max_iters - 1, l = loss))
            
     return (w, loss)
 
@@ -50,7 +52,8 @@ def least_squares_SGD(y, tx, initial_w, max_iters, gamma):
         for minibatch_y, minibatch_tx in batch_iter(y, tx, np.random.random_integers(max_iters), batch_size, shuffle):
             w = w - gamma * sgd_h.compute_stoch_gradient(minibatch_y, minibatch_tx, w)
             loss = co.compute_loss(minibatch_y, minibatch_tx, w)
-            print("Stochastic Gradient Descent({bi}/{ti}): loss={l}".format(bi = n_iter, ti = max_iters - 1, l = loss))
+            if n_iter % 50 == 0:            
+                print("Stochastic Gradient Descent({bi}/{ti}): loss={l}".format(bi = n_iter, ti = max_iters - 1, l = loss))
             n_iter += 1
             if(n_iter >= max_iters):
                 return (w, loss)
@@ -93,7 +96,7 @@ def ridge_regression(y, tx, lambda_):
 def logistic_regression(y, tx, initial_w, max_iters, gamma):
     """ 
     Implements logistic regression.
-        @param y : raw output variable 
+        @param y : raw output variable that takes values 0 or 1
         @param tx :raw input variable, might be a polynomial basis obtained from the input x
         @param initial_w : the intial guess
         @param max_iters : the maximum number of iterations that the algorithm will run for
@@ -117,7 +120,7 @@ def logistic_regression(y, tx, initial_w, max_iters, gamma):
                 break
 
     loss = lr_h.calculate_loss(y, tx, w)
-    print("\t\tThe loss={l}".format(l = loss))
+    
     return (w, loss)
 
 ### REGULARIZED LOGISTIC REGRESSION
@@ -125,7 +128,7 @@ def logistic_regression(y, tx, initial_w, max_iters, gamma):
 def regularized_logistic_regression(y, tx, lambda_, initial_w, max_iters, gamma):
     """ 
     Implements regularized logistic regression.
-        @param y : raw output variable 
+        @param y : raw output variable that takes values 0 or 1
         @param tx :raw input variable, might be a polynomial basis obtained from the input x
         @param initial_w : the intial guess
         @param max_iters : the maximum number of iterations that the algorithm will run for
@@ -141,7 +144,7 @@ def regularized_logistic_regression(y, tx, lambda_, initial_w, max_iters, gamma)
 
         loss, w = rlr_h.learning_by_gradient_descent(y, tx, w, gamma, lambda_)
         
-        if iter % 500 == 0:
+        if iter % 50 == 0:
             print("\t\tCurrent iteration={i}, the loss={l}".format(i = iter, l = loss))
 
         losses.append(loss)
@@ -149,6 +152,6 @@ def regularized_logistic_regression(y, tx, lambda_, initial_w, max_iters, gamma)
             if(np.abs(losses[-1] - losses[-2]) < threshold):
                 break
     
-    loss = rlr_h.calculate_loss(y, tx, w)
-    print("\t\tThe loss={l}".format(l = loss))
+    loss = rlr_h.calculate_loss(y, tx, w, lambda_)
+    
     return (w, loss)

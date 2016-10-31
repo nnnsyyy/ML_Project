@@ -83,18 +83,11 @@ def generate_initial_w(tX):#, sanatization_vec=None):
     @param tX : the sanatized raw data
     @return: a vector wich contains a median of each row
     """
-    #san_idx = np.array([0,4,5,6,12,23,24,25,26,27,28,29])
     initial_w = np.zeros(tX.shape[1])
     # generate a median for each row
-    #if sanatization_vec is None:
     for col in range(tX.shape[1]):
         initial_w[col] = np.median(tX[:,col])
-    #else:
-    #    for col in range(tX.shape[1]):
-    #        if col in san_idx:
-    #            initial_w[col] = 
-    #        else:
-    #            initial_w[col] = np.median(tX[:,col])
+
     return initial_w
         
 
