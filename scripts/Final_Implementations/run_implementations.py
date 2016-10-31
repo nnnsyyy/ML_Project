@@ -233,39 +233,15 @@ def rlr_run(lambda_, initial_w, max_iters, gamma, degree):
     
     #2. TRAIN THE MODEL
     #Let us now clean the input
-    #tX, median_tr, mean_tr, std_tr = clean_input(tX, degree)
+    tX, median_tr, mean_tr, std_tr = clean_input(tX, degree)
     
-    #weights, loss = regularized_logistic_regression(y, tX, lambda_, initial_w, max_iters, gamma)
-    #print('Weights on whole set\n',weights,'\nLoss',loss)
+    weights, loss = regularized_logistic_regression(y, tX, lambda_, initial_w, max_iters, gamma)
+    print('Weights on whole set\n',weights,'\nLoss',loss)
     
     #3. TEST THE MODEL AND EXPORT THE RESULTS
     # because logistic regression requires the y's to take on the values of 0 or 1, thus 
     # the threshold of the assignement of labels need to be moved to 0.5
-    #test_model(weights, median_tr, mean_tr, std_tr, degree, 'reg_logistic_regression')
-    tX = count_NaN(tX)
-    tX,median_tr = sanitize_NaN(tX)
-    tX,mean_tr,std_tr = standardize(tX)
-    tX = build_poly(tX,3)
-
-    weights = regularized_logistic_regression(y, tX, lambda_, initial_w, max_iters, gamma)
-
-    print('Weights on whole set\n',weights,'\nClassification error',error)
-    
-    #4. TEST THE MODEL AND EXPORT THE RESULTS
-    DATA_TEST_PATH = '../data/test.csv'  # Download train data and supply path here 
-    print('IMPORTING TESTING DATA :',end=" ")
-    y_test, tX_test, ids_test = load_csv_data(DATA_TEST_PATH)
-    print('DONE')
-    
-    tX_test = count_NaN(tX_test)
-    tX_test_sorted,median_vec = sanitize_NaN(tX_test,median_tr)
-    tX_test_sorted,mean_tr,std_tr = standardize(tX_test_sorted,mean_tr,std_tr)
-    tX_test_sorted = build_poly(tX_test_sorted, degree)
-    OUTPUT_PATH = 'results/output_sanitized_normalization_iter_3_4_7_11.csv' # Fill in desired name of output file for submission
-    print('EXPORTING TESTING DATA WITH PREDICTIONS :',end=" ")
-    y_pred = predict_labels(np.array(weights), np.array(tX_test_sorted), 0.5)
-    create_csv_submission(ids_test, y_pred, OUTPUT_PATH)
-    print('DONE')
+    test_model(weights, median_tr, mean_tr, std_tr, degree, 'reg_logistic_regression')
 
 # calling each run method    
 
@@ -274,4 +250,4 @@ def rlr_run(lambda_, initial_w, max_iters, gamma, degree):
 #ls_run()
 #rr_run(0.5, 11)
 #lr_run(np.zeros(32), 10000, 0.0002, 1)
-rlr_run(5, np.zeros(94), 2000, 1e6, 3)
+rlr_run(5, np.zeros(94), 2000, 1e-6, 3)

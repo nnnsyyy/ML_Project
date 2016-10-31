@@ -53,7 +53,7 @@ def sanitize_NaN(tX,median_vec=None):
     NEGATIVE_NAN = -999.0
     zero_NaN_table = [29]
     ZERO_NAN = 0
-    # Compute the median of the valid data if no median is provided
+    # Compute the median of the valid data is no median is provided
     if median_vec is None:
         n_iter=0
         median_vec = np.zeros(len(negative_NaN_table) + len(zero_NaN_table))
