@@ -1,0 +1,466 @@
+This files gives the log for our best run.
+
+1. We have the parameters
+
+    #0. DEFINE PARAMETERS FOR OUR RUN
+    seed = 1
+    
+    #not possible yet to run polynomial  degrees at the same time.
+    degrees = np.array([[9,10,11,12,13,14],[9,10,11,12,13,14],[9,10,11,12,13,14],[9,10,11,12,13,14]])
+    k_fold = 4
+    lambdas = [np.logspace(-3,3,20),np.logspace(-3,3,20),np.logspace(-3,3,20),np.logspace(-3,3,20)]
+
+    export_file="test_split_data_9_10_11_12_13__14_lambda_3_3_20"
+
+2. The best run : all cross validation-steps and additional information
+
+lambda= 12.74275, Percentage of classification error :  0.217331251501
+lambda= 26.366509, Percentage of classification error :  0.213337737209
+lambda= 54.555948, Percentage of classification error :  0.252592281207
+lambda= 112.883789, Percentage of classification error :  0.277344062775
+lambda= 233.572147, Percentage of classification error :  0.251151012891
+lambda= 483.293024, Percentage of classification error :  0.302225958844
+lambda= 1000.0, Percentage of classification error :  0.200986868444
+
+Best degree : 10
+Best error : 0.194771398831
+Best lambda : 0.695192796178
+Size of the vectors (99913,) (99913, 191)
+
+        CROSS VALIDATION FOR SPLIT NUMBER 1
+
+ Testing for a polynomial of degree  9
+lambda= 0.001, Percentage of classification error :  0.245795935211
+lambda= 0.002069, Percentage of classification error :  0.245808831115
+lambda= 0.004281, Percentage of classification error :  0.245808831115
+lambda= 0.008859, Percentage of classification error :  0.245783039307
+lambda= 0.01833, Percentage of classification error :  0.245783039307
+lambda= 0.037927, Percentage of classification error :  0.245770143402
+lambda= 0.078476, Percentage of classification error :  0.245795935211
+lambda= 0.162378, Percentage of classification error :  0.245705663881
+lambda= 0.335982, Percentage of classification error :  0.245718559785
+lambda= 0.695193, Percentage of classification error :  0.245744351594
+lambda= 1.43845, Percentage of classification error :  0.245847518828
+lambda= 2.976351, Percentage of classification error :  0.245757247498
+lambda= 6.158482, Percentage of classification error :  0.245886206541
+lambda= 12.74275, Percentage of classification error :  0.245873310637
+lambda= 26.366509, Percentage of classification error :  0.245976477871
+lambda= 54.555948, Percentage of classification error :  0.246015165583
+lambda= 112.883789, Percentage of classification error :  0.246144124626
+lambda= 233.572147, Percentage of classification error :  0.246440730424
+lambda= 483.293024, Percentage of classification error :  0.247111317446
+lambda= 1000.0, Percentage of classification error :  0.248388011967
+
+ Testing for a polynomial of degree  10
+lambda= 0.001, Percentage of classification error :  0.246079645105
+lambda= 0.002069, Percentage of classification error :  0.245860414732
+lambda= 0.004281, Percentage of classification error :  0.245937790158
+lambda= 0.008859, Percentage of classification error :  0.245911998349
+lambda= 0.01833, Percentage of classification error :  0.245899102445
+lambda= 0.037927, Percentage of classification error :  0.245860414732
+lambda= 0.078476, Percentage of classification error :  0.245847518828
+lambda= 0.162378, Percentage of classification error :  0.245834622924
+lambda= 0.335982, Percentage of classification error :  0.245808831115
+lambda= 0.695193, Percentage of classification error :  0.245795935211
+lambda= 1.43845, Percentage of classification error :  0.245576704839
+lambda= 2.976351, Percentage of classification error :  0.245512225317
+lambda= 6.158482, Percentage of classification error :  0.245602496647
+lambda= 12.74275, Percentage of classification error :  0.245718559785
+lambda= 26.366509, Percentage of classification error :  0.245602496647
+lambda= 54.555948, Percentage of classification error :  0.245499329413
+lambda= 112.883789, Percentage of classification error :  0.245705663881
+lambda= 233.572147, Percentage of classification error :  0.245795935211
+lambda= 483.293024, Percentage of classification error :  0.246685752605
+lambda= 1000.0, Percentage of classification error :  0.24800113484
+
+ Testing for a polynomial of degree  11
+lambda= 0.001, Percentage of classification error :  0.244287114412
+lambda= 0.002069, Percentage of classification error :  0.244403177551
+lambda= 0.004281, Percentage of classification error :  0.244325802125
+lambda= 0.008859, Percentage of classification error :  0.24433869803
+lambda= 0.01833, Percentage of classification error :  0.244364489838
+lambda= 0.037927, Percentage of classification error :  0.24458372021
+lambda= 0.078476, Percentage of classification error :  0.244441865264
+lambda= 0.162378, Percentage of classification error :  0.244351593934
+lambda= 0.335982, Percentage of classification error :  0.244300010317
+lambda= 0.695193, Percentage of classification error :  0.244403177551
+lambda= 1.43845, Percentage of classification error :  0.244145259466
+lambda= 2.976351, Percentage of classification error :  0.244029196327
+lambda= 6.158482, Percentage of classification error :  0.244145259466
+lambda= 12.74275, Percentage of classification error :  0.24406788404
+lambda= 26.366509, Percentage of classification error :  0.244016300423
+lambda= 54.555948, Percentage of classification error :  0.243951820902
+lambda= 112.883789, Percentage of classification error :  0.24467399154
+lambda= 233.572147, Percentage of classification error :  0.24406788404
+lambda= 483.293024, Percentage of classification error :  0.245228515424
+lambda= 1000.0, Percentage of classification error :  0.246402042711
+
+ Testing for a polynomial of degree  12
+lambda= 0.001, Percentage of classification error :  0.242352728773
+lambda= 0.002069, Percentage of classification error :  0.242571959146
+lambda= 0.004281, Percentage of classification error :  0.242559063242
+lambda= 0.008859, Percentage of classification error :  0.243435984731
+lambda= 0.01833, Percentage of classification error :  0.242997523986
+lambda= 0.037927, Percentage of classification error :  0.242546167337
+lambda= 0.078476, Percentage of classification error :  0.242636438667
+lambda= 0.162378, Percentage of classification error :  0.242275353348
+lambda= 0.335982, Percentage of classification error :  0.242481687816
+lambda= 0.695193, Percentage of classification error :  0.242120602497
+lambda= 1.43845, Percentage of classification error :  0.242120602497
+lambda= 2.976351, Percentage of classification error :  0.241914268028
+lambda= 6.158482, Percentage of classification error :  0.242120602497
+lambda= 12.74275, Percentage of classification error :  0.242288249252
+lambda= 26.366509, Percentage of classification error :  0.242288249252
+lambda= 54.555948, Percentage of classification error :  0.242443000103
+lambda= 112.883789, Percentage of classification error :  0.242455896007
+lambda= 233.572147, Percentage of classification error :  0.242210873826
+lambda= 483.293024, Percentage of classification error :  0.243023315795
+lambda= 1000.0, Percentage of classification error :  0.245499329413
+
+ Testing for a polynomial of degree  13
+lambda= 0.001, Percentage of classification error :  0.2539332508
+lambda= 0.002069, Percentage of classification error :  0.255854740534
+lambda= 0.004281, Percentage of classification error :  0.260677808728
+lambda= 0.008859, Percentage of classification error :  0.301880222841
+lambda= 0.01833, Percentage of classification error :  0.274463530383
+lambda= 0.037927, Percentage of classification error :  0.265294542453
+lambda= 0.078476, Percentage of classification error :  0.271059011658
+lambda= 0.162378, Percentage of classification error :  0.292633859486
+lambda= 0.335982, Percentage of classification error :  0.268479830806
+lambda= 0.695193, Percentage of classification error :  0.246118332817
+lambda= 1.43845, Percentage of classification error :  0.257092747343
+lambda= 2.976351, Percentage of classification error :  0.247885071701
+lambda= 6.158482, Percentage of classification error :  0.248504075106
+lambda= 12.74275, Percentage of classification error :  0.284148354483
+lambda= 26.366509, Percentage of classification error :  0.247962447127
+lambda= 54.555948, Percentage of classification error :  0.248117197978
+lambda= 112.883789, Percentage of classification error :  0.265423501496
+lambda= 233.572147, Percentage of classification error :  0.256692974311
+lambda= 483.293024, Percentage of classification error :  0.288906943155
+lambda= 1000.0, Percentage of classification error :  0.245692767977
+
+ Testing for a polynomial of degree  14
+lambda= 0.001, Percentage of classification error :  0.361085319303
+lambda= 0.002069, Percentage of classification error :  0.39715516352
+lambda= 0.004281, Percentage of classification error :  0.34664190653
+lambda= 0.008859, Percentage of classification error :  0.319444444444
+lambda= 0.01833, Percentage of classification error :  0.321417517796
+lambda= 0.037927, Percentage of classification error :  0.3156788404
+lambda= 0.078476, Percentage of classification error :  0.296812132467
+lambda= 0.162378, Percentage of classification error :  0.283026410812
+lambda= 0.335982, Percentage of classification error :  0.273702672031
+lambda= 0.695193, Percentage of classification error :  0.291176622305
+lambda= 1.43845, Percentage of classification error :  0.3949757557
+lambda= 2.976351, Percentage of classification error :  0.451459816362
+lambda= 6.158482, Percentage of classification error :  0.332366140514
+lambda= 12.74275, Percentage of classification error :  0.273354482616
+lambda= 26.366509, Percentage of classification error :  0.276346332405
+lambda= 54.555948, Percentage of classification error :  0.30233157949
+lambda= 112.883789, Percentage of classification error :  0.302821623852
+lambda= 233.572147, Percentage of classification error :  0.28855875374
+lambda= 483.293024, Percentage of classification error :  0.274308779532
+lambda= 1000.0, Percentage of classification error :  0.255480759311
+
+Best degree : 12
+Best error : 0.241914268028
+Best lambda : 2.97635144163
+Size of the vectors (77544,) (77544, 277)
+
+        CROSS VALIDATION FOR SPLIT NUMBER 2
+
+ Testing for a polynomial of degree  9
+lambda= 0.001, Percentage of classification error :  0.209425123074
+lambda= 0.002069, Percentage of classification error :  0.209444973797
+lambda= 0.004281, Percentage of classification error :  0.209444973797
+lambda= 0.008859, Percentage of classification error :  0.209524376687
+lambda= 0.01833, Percentage of classification error :  0.20946482452
+lambda= 0.037927, Percentage of classification error :  0.209425123074
+lambda= 0.078476, Percentage of classification error :  0.209425123074
+lambda= 0.162378, Percentage of classification error :  0.209444973797
+lambda= 0.335982, Percentage of classification error :  0.209385421629
+lambda= 0.695193, Percentage of classification error :  0.209325869462
+lambda= 1.43845, Percentage of classification error :  0.209504525965
+lambda= 2.976351, Percentage of classification error :  0.209484675242
+lambda= 6.158482, Percentage of classification error :  0.209226615849
+lambda= 12.74275, Percentage of classification error :  0.209484675242
+lambda= 26.366509, Percentage of classification error :  0.2096236303
+lambda= 54.555948, Percentage of classification error :  0.209583928855
+lambda= 112.883789, Percentage of classification error :  0.209504525965
+lambda= 233.572147, Percentage of classification error :  0.209921391139
+lambda= 483.293024, Percentage of classification error :  0.2102390027
+lambda= 1000.0, Percentage of classification error :  0.212879148801
+
+ Testing for a polynomial of degree  10
+lambda= 0.001, Percentage of classification error :  0.209822137526
+lambda= 0.002069, Percentage of classification error :  0.209822137526
+lambda= 0.004281, Percentage of classification error :  0.209782436081
+lambda= 0.008859, Percentage of classification error :  0.209802286803
+lambda= 0.01833, Percentage of classification error :  0.209841988248
+lambda= 0.037927, Percentage of classification error :  0.209742734636
+lambda= 0.078476, Percentage of classification error :  0.209742734636
+lambda= 0.162378, Percentage of classification error :  0.209782436081
+lambda= 0.335982, Percentage of classification error :  0.209901540416
+lambda= 0.695193, Percentage of classification error :  0.210040495474
+lambda= 1.43845, Percentage of classification error :  0.210000794029
+lambda= 2.976351, Percentage of classification error :  0.210000794029
+lambda= 6.158482, Percentage of classification error :  0.210020644751
+lambda= 12.74275, Percentage of classification error :  0.210060346197
+lambda= 26.366509, Percentage of classification error :  0.209841988248
+lambda= 54.555948, Percentage of classification error :  0.209643481023
+lambda= 112.883789, Percentage of classification error :  0.209564078132
+lambda= 233.572147, Percentage of classification error :  0.209961092584
+lambda= 483.293024, Percentage of classification error :  0.210497062093
+lambda= 1000.0, Percentage of classification error :  0.21264094013
+
+ Testing for a polynomial of degree  11
+lambda= 0.001, Percentage of classification error :  0.209484675242
+lambda= 0.002069, Percentage of classification error :  0.209583928855
+lambda= 0.004281, Percentage of classification error :  0.209583928855
+lambda= 0.008859, Percentage of classification error :  0.20954422741
+lambda= 0.01833, Percentage of classification error :  0.209385421629
+lambda= 0.037927, Percentage of classification error :  0.209524376687
+lambda= 0.078476, Percentage of classification error :  0.209425123074
+lambda= 0.162378, Percentage of classification error :  0.209306018739
+lambda= 0.335982, Percentage of classification error :  0.209484675242
+lambda= 0.695193, Percentage of classification error :  0.2096236303
+lambda= 1.43845, Percentage of classification error :  0.2096236303
+lambda= 2.976351, Percentage of classification error :  0.20954422741
+lambda= 6.158482, Percentage of classification error :  0.209246466571
+lambda= 12.74275, Percentage of classification error :  0.209246466571
+lambda= 26.366509, Percentage of classification error :  0.209047959346
+lambda= 54.555948, Percentage of classification error :  0.208869302843
+lambda= 112.883789, Percentage of classification error :  0.209067810068
+lambda= 233.572147, Percentage of classification error :  0.209266317294
+lambda= 483.293024, Percentage of classification error :  0.20970303319
+lambda= 1000.0, Percentage of classification error :  0.211529299667
+
+ Testing for a polynomial of degree  12
+lambda= 0.001, Percentage of classification error :  0.208055423217
+lambda= 0.002069, Percentage of classification error :  0.208273781166
+lambda= 0.004281, Percentage of classification error :  0.208313482611
+lambda= 0.008859, Percentage of classification error :  0.207956169605
+lambda= 0.01833, Percentage of classification error :  0.208412736224
+lambda= 0.037927, Percentage of classification error :  0.207817214547
+lambda= 0.078476, Percentage of classification error :  0.207579005876
+lambda= 0.162378, Percentage of classification error :  0.207698110211
+lambda= 0.335982, Percentage of classification error :  0.207956169605
+lambda= 0.695193, Percentage of classification error :  0.208095124663
+lambda= 1.43845, Percentage of classification error :  0.208253930443
+lambda= 2.976351, Percentage of classification error :  0.208114975385
+lambda= 6.158482, Percentage of classification error :  0.20815467683
+lambda= 12.74275, Percentage of classification error :  0.208015721772
+lambda= 26.366509, Percentage of classification error :  0.207698110211
+lambda= 54.555948, Percentage of classification error :  0.207698110211
+lambda= 112.883789, Percentage of classification error :  0.20799587105
+lambda= 233.572147, Percentage of classification error :  0.207539304431
+lambda= 483.293024, Percentage of classification error :  0.207976020327
+lambda= 1000.0, Percentage of classification error :  0.211152135938
+
+ Testing for a polynomial of degree  13
+lambda= 0.001, Percentage of classification error :  0.211152135938
+lambda= 0.002069, Percentage of classification error :  0.209941241861
+lambda= 0.004281, Percentage of classification error :  0.210675718596
+lambda= 0.008859, Percentage of classification error :  0.209643481023
+lambda= 0.01833, Percentage of classification error :  0.207638558044
+lambda= 0.037927, Percentage of classification error :  0.223757344767
+lambda= 0.078476, Percentage of classification error :  0.20799587105
+lambda= 0.162378, Percentage of classification error :  0.207916468159
+lambda= 0.335982, Percentage of classification error :  0.20807527394
+lambda= 0.695193, Percentage of classification error :  0.208730347785
+lambda= 1.43845, Percentage of classification error :  0.207539304431
+lambda= 2.976351, Percentage of classification error :  0.252501191043
+lambda= 6.158482, Percentage of classification error :  0.211549150389
+lambda= 12.74275, Percentage of classification error :  0.206646021915
+lambda= 26.366509, Percentage of classification error :  0.208611243449
+lambda= 54.555948, Percentage of classification error :  0.213732729871
+lambda= 112.883789, Percentage of classification error :  0.213633476259
+lambda= 233.572147, Percentage of classification error :  0.215082579006
+lambda= 483.293024, Percentage of classification error :  0.207837065269
+lambda= 1000.0, Percentage of classification error :  0.211529299667
+
+ Testing for a polynomial of degree  14
+lambda= 0.001, Percentage of classification error :  0.285413689058
+lambda= 0.002069, Percentage of classification error :  0.273999523583
+lambda= 0.004281, Percentage of classification error :  0.236779418771
+lambda= 0.008859, Percentage of classification error :  0.229474352866
+lambda= 0.01833, Percentage of classification error :  0.226754803875
+lambda= 0.037927, Percentage of classification error :  0.226119580753
+lambda= 0.078476, Percentage of classification error :  0.272868032396
+lambda= 0.162378, Percentage of classification error :  0.24714149595
+lambda= 0.335982, Percentage of classification error :  0.239578370653
+lambda= 0.695193, Percentage of classification error :  0.293731141814
+lambda= 1.43845, Percentage of classification error :  0.236521359377
+lambda= 2.976351, Percentage of classification error :  0.230447038272
+lambda= 6.158482, Percentage of classification error :  0.209365570907
+lambda= 12.74275, Percentage of classification error :  0.212898999524
+lambda= 26.366509, Percentage of classification error :  0.210437509925
+lambda= 54.555948, Percentage of classification error :  0.206050500238
+lambda= 112.883789, Percentage of classification error :  0.206288708909
+lambda= 233.572147, Percentage of classification error :  0.207876766714
+lambda= 483.293024, Percentage of classification error :  0.209822137526
+lambda= 1000.0, Percentage of classification error :  0.219251230745
+
+Best degree : 14
+Best error : 0.206050500238
+Best lambda : 54.5559478117
+Size of the vectors (50379,) (50379, 421)
+
+        CROSS VALIDATION FOR SPLIT NUMBER 3
+
+ Testing for a polynomial of degree  9
+lambda= 0.001, Percentage of classification error :  0.211062985021
+lambda= 0.002069, Percentage of classification error :  0.210972748601
+lambda= 0.004281, Percentage of classification error :  0.211062985021
+lambda= 0.008859, Percentage of classification error :  0.211062985021
+lambda= 0.01833, Percentage of classification error :  0.210927630392
+lambda= 0.037927, Percentage of classification error :  0.210927630392
+lambda= 0.078476, Percentage of classification error :  0.210972748601
+lambda= 0.162378, Percentage of classification error :  0.210566684714
+lambda= 0.335982, Percentage of classification error :  0.210431330085
+lambda= 0.695193, Percentage of classification error :  0.210205739036
+lambda= 1.43845, Percentage of classification error :  0.210295975456
+lambda= 2.976351, Percentage of classification error :  0.210295975456
+lambda= 6.158482, Percentage of classification error :  0.210747157553
+lambda= 12.74275, Percentage of classification error :  0.210160620827
+lambda= 26.366509, Percentage of classification error :  0.210160620827
+lambda= 54.555948, Percentage of classification error :  0.211062985021
+lambda= 112.883789, Percentage of classification error :  0.211784876376
+lambda= 233.572147, Percentage of classification error :  0.21580039704
+lambda= 483.293024, Percentage of classification error :  0.223786320159
+lambda= 1000.0, Percentage of classification error :  0.232042952536
+
+ Testing for a polynomial of degree  10
+lambda= 0.001, Percentage of classification error :  0.209122902003
+lambda= 0.002069, Percentage of classification error :  0.209213138423
+lambda= 0.004281, Percentage of classification error :  0.209213138423
+lambda= 0.008859, Percentage of classification error :  0.209168020213
+lambda= 0.01833, Percentage of classification error :  0.209122902003
+lambda= 0.037927, Percentage of classification error :  0.208852192745
+lambda= 0.078476, Percentage of classification error :  0.208942429164
+lambda= 0.162378, Percentage of classification error :  0.208671719906
+lambda= 0.335982, Percentage of classification error :  0.208626601696
+lambda= 0.695193, Percentage of classification error :  0.208716838116
+lambda= 1.43845, Percentage of classification error :  0.209303374842
+lambda= 2.976351, Percentage of classification error :  0.2095740841
+lambda= 6.158482, Percentage of classification error :  0.209844793359
+lambda= 12.74275, Percentage of classification error :  0.209483847681
+lambda= 26.366509, Percentage of classification error :  0.209077783794
+lambda= 54.555948, Percentage of classification error :  0.210250857246
+lambda= 112.883789, Percentage of classification error :  0.211469048908
+lambda= 233.572147, Percentage of classification error :  0.215529687782
+lambda= 483.293024, Percentage of classification error :  0.221169463996
+lambda= 1000.0, Percentage of classification error :  0.231140588341
+
+ Testing for a polynomial of degree  11
+lambda= 0.001, Percentage of classification error :  0.2095740841
+lambda= 0.002069, Percentage of classification error :  0.209348493052
+lambda= 0.004281, Percentage of classification error :  0.209077783794
+lambda= 0.008859, Percentage of classification error :  0.209077783794
+lambda= 0.01833, Percentage of classification error :  0.215078505685
+lambda= 0.037927, Percentage of classification error :  0.209348493052
+lambda= 0.078476, Percentage of classification error :  0.209348493052
+lambda= 0.162378, Percentage of classification error :  0.209032665584
+lambda= 0.335982, Percentage of classification error :  0.209032665584
+lambda= 0.695193, Percentage of classification error :  0.208536365277
+lambda= 1.43845, Percentage of classification error :  0.208536365277
+lambda= 2.976351, Percentage of classification error :  0.208987547374
+lambda= 6.158482, Percentage of classification error :  0.208807074535
+lambda= 12.74275, Percentage of classification error :  0.208942429164
+lambda= 26.366509, Percentage of classification error :  0.208401010648
+lambda= 54.555948, Percentage of classification error :  0.209258256632
+lambda= 112.883789, Percentage of classification error :  0.210927630392
+lambda= 233.572147, Percentage of classification error :  0.214582205378
+lambda= 483.293024, Percentage of classification error :  0.221034109367
+lambda= 1000.0, Percentage of classification error :  0.231997834326
+
+ Testing for a polynomial of degree  12
+lambda= 0.001, C:\Users\thom_\Anaconda3\lib\site-packages\matplotlib\pyplot.py:524: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).
+  max_open_warning, RuntimeWarning)
+Percentage of classification error :  0.209483847681
+lambda= 0.002069, Percentage of classification error :  0.205874390904
+lambda= 0.004281, Percentage of classification error :  0.205919509114
+lambda= 0.008859, Percentage of classification error :  0.206190218372
+lambda= 0.01833, Percentage of classification error :  0.205919509114
+lambda= 0.037927, Percentage of classification error :  0.205784154485
+lambda= 0.078476, Percentage of classification error :  0.205784154485
+lambda= 0.162378, Percentage of classification error :  0.205829272694
+lambda= 0.335982, Percentage of classification error :  0.205468327017
+lambda= 0.695193, Percentage of classification error :  0.205603681646
+lambda= 1.43845, Percentage of classification error :  0.205693918065
+lambda= 2.976351, Percentage of classification error :  0.206054863743
+lambda= 6.158482, Percentage of classification error :  0.205287854178
+lambda= 12.74275, Percentage of classification error :  0.205739036275
+lambda= 26.366509, Percentage of classification error :  0.206099981953
+lambda= 54.555948, Percentage of classification error :  0.206731636889
+lambda= 112.883789, Percentage of classification error :  0.209303374842
+lambda= 233.572147, Percentage of classification error :  0.214537087168
+lambda= 483.293024, Percentage of classification error :  0.221801118932
+lambda= 1000.0, Percentage of classification error :  0.231862479697
+
+ Testing for a polynomial of degree  13
+lambda= 0.001, Percentage of classification error :  0.224869157192
+lambda= 0.002069, Percentage of classification error :  0.262136798412
+lambda= 0.004281, Percentage of classification error :  0.210792275762
+lambda= 0.008859, Percentage of classification error :  0.251759610179
+lambda= 0.01833, Percentage of classification error :  0.209709438729
+lambda= 0.037927, Percentage of classification error :  0.207724237502
+lambda= 0.078476, Percentage of classification error :  0.207363291825
+lambda= 0.162378, Percentage of classification error :  0.207408410034
+lambda= 0.335982, Percentage of classification error :  0.209483847681
+lambda= 0.695193, Percentage of classification error :  0.215980869879
+lambda= 1.43845, Percentage of classification error :  0.247563616676
+lambda= 2.976351, Percentage of classification error :  0.210205739036
+lambda= 6.158482, Percentage of classification error :  0.20655116405
+lambda= 12.74275, Percentage of classification error :  0.212100703844
+lambda= 26.366509, Percentage of classification error :  0.209122902003
+lambda= 54.555948, Percentage of classification error :  0.205107381339
+lambda= 112.883789, Percentage of classification error :  0.210070384407
+lambda= 233.572147, Percentage of classification error :  0.216116224508
+lambda= 483.293024, Percentage of classification error :  0.222929074174
+lambda= 1000.0, Percentage of classification error :  0.231501534019
+
+ Testing for a polynomial of degree  14
+lambda= 0.001, Percentage of classification error :  0.321873308067
+lambda= 0.002069, Percentage of classification error :  0.277116044035
+lambda= 0.004281, Percentage of classification error :  0.253564338567
+lambda= 0.008859, Percentage of classification error :  0.248150153402
+lambda= 0.01833, Percentage of classification error :  0.315782349756
+lambda= 0.037927, Percentage of classification error :  0.260602779282
+lambda= 0.078476, Percentage of classification error :  0.239667929977
+lambda= 0.162378, Percentage of classification error :  0.253383865728
+lambda= 0.335982, Percentage of classification error :  0.254195993503
+lambda= 0.695193, Percentage of classification error :  0.285147085364
+lambda= 1.43845, Percentage of classification error :  0.342402093485
+lambda= 2.976351, Percentage of classification error :  0.247698971305
+lambda= 6.158482, Percentage of classification error :  0.21110810323
+lambda= 12.74275, Percentage of classification error :  0.206776755098
+lambda= 26.366509, Percentage of classification error :  0.204746435661
+lambda= 54.555948, Percentage of classification error :  0.209303374842
+lambda= 112.883789, Percentage of classification error :  0.209799675149
+lambda= 233.572147, Percentage of classification error :  0.216386933766
+lambda= 483.293024, Percentage of classification error :  0.23132106118
+lambda= 1000.0, Percentage of classification error :  0.277296516874
+
+Best degree : 14
+Best error : 0.204746435661
+Best lambda : 26.3665089873
+Size of the vectors (22164,) (22164, 421)
+Degrees [10, 12, 14, 14]
+Lambdas [0.69519279617756058, 2.9763514416313162, 54.555947811685144, 26.366508987303554]
+
+IMPORTING TESTING DATA : DONE
+SPLITTING TESTING DATA : DONE
+PREDICTION FOR TESTING DATA SPLIT NUMBER 0
+Size of the vectors (227458,) (227458, 30)
+Counting NaN. Sanitizing . Standardizing .Building polynomial basis
+PREDICTION FOR TESTING DATA SPLIT NUMBER 1
+Size of the vectors (175338,) (175338, 30)
+Counting NaN. Sanitizing . Standardizing .Building polynomial basis
+PREDICTION FOR TESTING DATA SPLIT NUMBER 2
+Size of the vectors (114648,) (114648, 30)
+Counting NaN. Sanitizing . Standardizing .Building polynomial basis
+PREDICTION FOR TESTING DATA SPLIT NUMBER 3
+Size of the vectors (50794,) (50794, 30)
+Counting NaN. Sanitizing . Standardizing .Building polynomial basis
+MERGING TESTING DATADONE
+EXPORTING TESTING DATA WITH PREDICTIONS : DONE
