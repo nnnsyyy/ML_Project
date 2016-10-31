@@ -24,12 +24,10 @@ The data we were given about the Higgs Boson contains 30 columns of measurements
 
 \textbf{3. Standardization of the Data :} The second step in the formatting of our data was to standardize them. Having the gradient with the same magnitude in each direction yields a much faster convergence for the methods using gradient descent, like logistic regression. And it also turns out to be practical if we wish to construct a polynomial basis, as it will keep the large values of our data set bounded. It is important to note that in the case where a column has standard deviation $0$, i.e. all it values are the same, we then remove it from the data, as it contains no useful information.
 
-\textbf{4. Polynomial basis :} The last step in the formatting of our data was to take a polynomial basis of degree $D$ for our data. We did not add the cross terms of the form $x_1x_2x_3$ for polynomials of degree three, as this would have given far too much features for our model to fit. For a basis of degree $D$, our polynomial basis was of the form
+\textbf{4. Polynomial basis :} The last step in the formatting of our data was to take a polynomial basis of degree $D$ for our data. We did not add the cross terms of the form $x_1x_2x_3$ for polynomials of degree three, as this would have given far too much features for our model to fit. For a basis of degree $D$ and an input with $M$ features, our polynomial basis was of the form
 \begin{equation}
-\left[1 ~ \mathbf{x}_1 \cdots \mathbf{x}_N ~\mathbf{x}_1^2 \cdots \mathbf{x}_N^2 ~ \mathbf{x}_1^D \cdots \mathbf{x}_N^D \right]
+\left[1 ~ \mathbf{x}_1 \cdots \mathbf{x}_N ~\mathbf{x}_1^2 \cdots \mathbf{x}_N^2 ~ \mathbf{x}_1^D \cdots \mathbf{x}_N^D \right] \mbox{ where } \mathbf{x}_i \in \mathbb{R}^M
 \end{equation}
-where $\mathbf{x}_i \in \mathbb{R}^M, ~~i =1,\ldots,N$. 
-
 \textbf{5. Additional notice :} When we turn to prediction, we will apply the same transformation to our testing set, but we will not recompute the median, mean and standard deviation, we will apply those that we had found for the training set, because we would otherwise end up with a biased result.
 \section{Results}
 \subsection{Methodology}
@@ -42,13 +40,13 @@ Let us now present quickly some results that we obtained with each method. Note 
 	\begin{tabular}{c||c|c|c|c|c|c}
 		\textbf{Method used} & GD & SGD & LS & RR & LR & RLR  \\
 		\hline
-		\textbf{Accuracy ($\%$)} & $70.0$&$0$&$71.9$&$82.96$&$77.4$&$0.69$\\
+		\textbf{Accuracy ($\%$)} & $70.0$&$70.1$&$71.9$&$82.96$&$77.4$&$0.69$\\
 		\hline
-		\textbf{Degree} & $1$ &0&$1$&$10-14$&$2$&$3$\\
+		\textbf{Degree} & $1$ &$1$&$1$&$10-14$&$2$&$3$\\
 		\hline
-		$\mathbf{\gamma}$ & $2^{-6}$&0&\diagbox{}&\diagbox{}&$10^{-8}$&$10^{-6}$\\
+		$\mathbf{\gamma}$ & $2^{-6}$&$2^{-12}$&\diagbox{}&\diagbox{}&$10^{-8}$&$10^{-6}$\\
 		\hline
-		\textbf{max\_iters} & $2000$&0&\diagbox{}&\diagbox{}&$2000$&$2000$\\
+		\textbf{max\_iters} & $2000$&$2000$&\diagbox{}&\diagbox{}&$2000$&$2000$\\
 		\hline
 		$\mathbf{\lambda}$ & \diagbox{}&\diagbox{}&\diagbox{}&$0.7-54$&\diagbox{}&$7.74$\\
 		
