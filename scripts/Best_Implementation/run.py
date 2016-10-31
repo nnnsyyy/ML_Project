@@ -26,9 +26,9 @@ def run():
     
     degrees = np.array([[9,10,11,12,13,14],[9,10,11,12,13,14],[9,10,11,12,13,14],[9,10,11,12,13,14]])
     k_fold = 4
-    lambdas = [np.logspace(-3,3,1),np.logspace(-3,3,1),np.logspace(-3,3,1),np.logspace(-3,3,1)]
+    lambdas = [np.logspace(-3,3,20),np.logspace(-3,3,20),np.logspace(-3,3,20),np.logspace(-3,3,20)]
 
-    export_file="test_split_data_9_10_11_12_13__14_lambda_3_3_1"
+    export_file="test_split_data_9_10_11_12_13__14_lambda_3_3_20"
     #1. LOAD THE DATA
     print('LOADING THE DATA: ',end=" ")
     DATA_TRAIN_PATH = '../data/train.csv' # TODO: download train data and supply path here 
