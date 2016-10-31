@@ -134,7 +134,8 @@ def sgd_run(initial_w, max_iters, gamma):
     create_csv_submission(ids_test, y_pred, OUTPUT_PATH)
     print('DONE')
 
-#sgd_run(np.zeros(30), 605, 2**-13)
+#sgd_run(np.zeros(30), 70, 2**-10)
+sgd_run(np.zeros(30), 2000, 2**-12)
 
 #least_square
 def ls_run():
