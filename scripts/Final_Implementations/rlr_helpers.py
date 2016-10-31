@@ -21,7 +21,7 @@ def calculate_gradient(y, tx, w,lambda_):
 
 def learning_by_gradient_descent(y, tx, w, gamma,lambda_):
     """
-    Do one step of gradient descen using logistic regression.
+    Do one step of gradient descen using regularized logistic regression.
     Return the loss and the updated w.
     """
     loss = calculate_loss(y,tx,w,lambda_) 

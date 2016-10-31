@@ -40,35 +40,39 @@ Let us now present quickly some results that we obtained with each method. Note 
 	\begin{tabular}{c||c|c|c|c|c|c}
 		\textbf{Method used} & GD & SGD & LS & RR & LR & RLR  \\
 		\hline
-		\textbf{Accuracy ($\%$)} & $70.0$&$70.1$&$71.9$&$82.96$&$77.4$&$0.69$\\
+		\textbf{Accuracy ($\%$)} & $70.0$&$70.1$&$71.9$&$81.8$&$77.4$&$0.69$\\
 		\hline
-		\textbf{Degree} & $1$ &$1$&$1$&$10-14$&$2$&$3$\\
+		\textbf{Degree} & $1$ &$1$&$1$&$12$&$2$&$3$\\
 		\hline
 		$\mathbf{\gamma}$ & $2^{-6}$&$2^{-12}$&\diagbox{}&\diagbox{}&$10^{-8}$&$10^{-6}$\\
 		\hline
 		\textbf{max\_iters} & $2000$&$2000$&\diagbox{}&\diagbox{}&$2000$&$2000$\\
 		\hline
-		$\mathbf{\lambda}$ & \diagbox{}&\diagbox{}&\diagbox{}&$0.7-54$&\diagbox{}&$7.74$\\
-		
+		$\mathbf{\lambda}$ & \diagbox{}&\diagbox{}&\diagbox{}&$0.47$&\diagbox{}&$7.74$\\	
 	\end{tabular}
 	
-	\caption{Best error in the measurements for respectively GD (Gradient Descent), SGD (Stochastic Gradient Descent), LS (Least Squares), RR (Ridge Regression), LR (Logistic Regression), RLR (Regularized Logistic Regression). The degree field corresponds to the degree of the polynomial basis we used for the prediction, the $\gamma$ is the parameter for every method implying some kind of gradient descent, max\_iters, $\lambda$ is the parameter for every method that implied penalization of the large weights. Note that the results for Ridge Regression seem quite vague, and it is because they were performed on a differently modified dataset. They will be given expensively in the table \ref{tab:RR}}
+	\caption{Best error in the measurements for respectively GD (Gradient Descent), SGD (Stochastic Gradient Descent), LS (Least Squares), RR (Ridge Regression), LR (Logistic Regression), RLR (Regularized Logistic Regression). The degree field corresponds to the degree of the polynomial basis we used for the prediction, the $\gamma$ is the parameter for every method implying some kind of gradient descent, max\_iters, $\lambda$ is the parameter for every method that implied penalization of the large weights. Note that the results for Ridge Regression were further improved and that our best results are shown on the table \ref{tab:RR}}
 	\label{tab:results}
 \end{table}
 
-First of all, let us talk about our biggest surprise in the results. We would have expected both Logistic Regression (LR) and Regularized Logistic Regression (RLR) to do extremely well in this problem, as this is actually a classification problem : we must find whether the output is a Boson. However, we were not able to get very successful results with them, due to the fact that the convergence was very slow and that the picking of the parameter $\gamma$ was quite complicated.  Indeed, choosing it too large would cause the cost function to oscillate after a few hundreds of iterations, and picking it too small would cause the convergence to take tens of thousands of iterations. We did not try to dynamically adapt it, rather focusing on getting better results using the Ridge Regression. This convergence was slow even when trying to start with initial weights that were the result of a previous iteration with another method (e.g. the best $w$ from Ridge Regression, ...). Another problem linked to the fact that those methods are very slow is that they make cross-validation extremely painful, as the algorithm must compute thousands of slow steps for each method each time. However, we believe that if we had a more time and a deeper understanding of Regularized Logistic Regression, we could have got very good results with it, as it seems instinctively to be the most suited method for this problem : it is a classification method which allows for high degree polynomial basis, which allows to fit very non linear behaviors while not overfitting the data. 
+First of all, let us talk about our biggest surprise in the results. We would have expected both Logistic Regression (LR) and Regularized Logistic Regression (RLR) to do extremely well in this problem, as finding whether the output is a Boson is a classification problem. However, we were not able to get very successful results with them, mainly due to the slow convergence of our data. The picking of the parameter $\gamma$ was the problem here, as choosing it too large would cause the weights to oscillate after a few hundreds of iterations, and choosing it too small would cause the convergence of the algorithm to take tens of thousands of iterations. 
 
-We did not use the Gradient Descent and Stochastic Gradient descent very much, as they did not in this case present any advantage over the Least Squares and the Ridge Regression : they are iterative, depending on $\gamma$, while in the least squares, we only solve a linear system of equations. However, they are slightly faster than the logistic regression methods, as they do not require the evaluation of an exponential for each entry at each iteration. Another reason for not using it was that they tend to overfit the data if we start considering high degree polynomial basis as we typically did, as they do not penalize large weights.
+For Regularized Logistic Regression, the main problem was that the algorithm would take thousands of iteration to converge, even when starting with a reasonable $w$, which was the output of another method, and a carefully picked $\gamma$. This made the 4-fold cross-validation for the polynomial degree and the penalization $\lambda$ extremely slow. Indeed, each step requires the evaluation of the equivalent of the sigmoid function for each element of the training set. However, if we had implemented an adaptive algorithm for $\gamma$, the results with this method could have been quite good, as it seemed to be the most suited for this problme : it is a classification method which implements penalization, allowing us to use high degree polynomials.
 
-The Least Squares has the advantage of being quick to compute, and giving a good solution immediately (the results it gives are good even with the raw data !). Its only problem is that it also overfits the data for bases with large polynomial bases, as it does not penalize weights, like (stochastic) gradient descent and logistic regression.
+We did not use the Gradient Descent and Stochastic Gradient descent very much, as they presented roughly the same downsides than Logistic Regression. They were however a bit faster, but did not allow for high polyomial degrees, as it would overfit the data. The SGD method was limited to a batch of size one, but considering the size of our data, using a larger batch could have yielded better results.
+
+The Least Squares has the advantage of being quick to compute, and giving a good solution immediately (the results it gives are good even with the raw data). Its only problem is that it also overfits the data for bases with large polynomial bases, as it does not penalize large weights.
+
+The Ridge Regression has all the advantages of the Least Squares, but also efficiently deals with large polynomial degrees. It allows for extensive cross validation, and we obtained the best results using it. We focused on this method and try to improve it to get even better results, which we present hereafter.
+
 
 \subsection{Best results : Ridge Regression}
-\subsubsection{Special formatting of our data}
-Due to lack of time, we did not test this additional formatting of data with the other models. We only selected the model that was doing best already, and it was the Ridge Regression. What we did is split the dataset into four distinct datasets, using the JET\_split attribute to do so, as it ranges from $0$ to $3$ with only integer entries. It appeared then that some columns were filled with NaNs, and we then discarded them from the concerned datasets. The number of features then varied from a split to the other. We then split the testing data in the same fashion, and perform the prediction on each split dataset, before merging all the results we get. We also allowed each of the split dataset to be cross-validated on different parameters, in order to find relatively quickly the best value for each of them.
+\subsubsection{Splitting the dataset}
+Due to lack of time, we only applied this formatting to the Ridge Regression, which already had the best results. We split the dataset into four distinct datasets, using the JET\_split attribute to do so, as its value were $0$,$1$,$2$ and $3$. It appeared then that some columns were filled with NaNs, and we then discarded them from the concerned datasets. The number of features then varied from a split to the other. We applied the same transformation to the testing set and did the prediction on each of the smaller datasets before merging them back toheter. We also allowed each of the split dataset to be cross-validated on different parameters, in order to find relatively quickly the best value for each of those.
 
 
 \subsubsection{Details of the results}
-The detail of the results we obtained is summarised in the table \ref{tab:RR} below. We see that the prediction error is overall higher than in what we have in the table \ref{tab:results}. This could be because we have a smaller dataset each time that we train on, and so the result is slightly less precise than when we simulatneously train on the whole dataset. Note that the splits vary a lot in the number of elements in them, and that the splits $0$ and $1$ have way less features than others : it is due to the fact that some columns end up being filled only with $NaNs$ and are hence excluded as they do not bring any information.
+The detail of the results we obtained is summarised in the table \ref{tab:RR} below. We see that the prediction error is overall higher than in what we have in the table \ref{tab:results}. This could be because we have a smaller dataset each time that we train on, and so the result is slightly less precise than when wedo the training on the whole dataset. Note that the splits vary a lot in the number of elements in them, and that the splits $0$ and $1$ have way less features than others : it is due to the fact that some columns end up being filled only with $NaNs$ and are hence excluded as they do not convey any information. Comparing the results that we got from the improvement, we increased the accuracy of our prediction $1.1\%$, which is quite good, as it tended to be quite complicated to go above  $82\%$ for the prediction accuracy.
 
 \begin{table}[!ht]
 	\centering
@@ -84,6 +88,9 @@ The detail of the results we obtained is summarised in the table \ref{tab:RR} be
 		\textbf{Degree} & $10$ & $12$ & $14$ & $14$ \\
 		\hline
 		{$\mathbf{\lambda}$} & $0.695$ & $2.976$ & $54.556$ & $26.367$\\
+		\hline
+		\hline
+		\textbf{Overall accuracy (\%)} &  \multicolumn{4}{|c}{82.9}
 	\end{tabular}
 	\caption{Expanded results for the best submission with Ridge Regression on a split dataset. The results are the ones with obtained with a cross-validation with several polynomial degrees and $\lambda$ ranging from $10^{-2}$ to $10^{2}$}
 	\label{tab:RR}
