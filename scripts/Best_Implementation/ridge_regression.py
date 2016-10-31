@@ -16,9 +16,9 @@ def ridge_regression(y, tx, lambda_):
         @return : function that computes the weights that best fit the data given as input
     
     """
-    return np.linalg.solve(np.dot(tx.T,tx)+lambda_*np.identity(tx.shape[1]),np.dot(tx.T,y))
+    return np.linalg.solve(np.dot(tx.T, tx) + lambda_*np.identity(tx.shape[1]), np.dot(tx.T, y))
 
-def cross_validation(y,tX,degrees,lambdas,k_fold,seed,split=""):
+def cross_validation(y, tX, degrees, lambdas, k_fold, seed, split=""):
     """
         Uses the cross_validation to find the best of the the given parameters and returns the best result (degree, error and lambda)
         The best result will be the one associated with the lambda minimizing the classification error, i.e. the percentage of failures in the retrieval process.
@@ -68,13 +68,13 @@ def cross_validation(y,tX,degrees,lambdas,k_fold,seed,split=""):
             loss_tr_sum=0
             loss_te_sum=0
             for k in range(k_fold+1):
-                loss_tr_tmp,loss_te_tmp =cross_validation_rr(y,tX,k_indices,k,lambda_,degree)
+                loss_tr_tmp,loss_te_tmp =cross_validation_rr(y, tX, k_indices, k, lambda_, degree)
                 loss_tr_sum += loss_tr_tmp
                 loss_te_sum += loss_te_tmp
                 
             class_error_tr[i] = loss_tr_sum/k_fold
             class_error_te[i] = loss_te_sum/k_fold
-            print('Classification error : ',class_error_te[i])
+            print('Classification error : ', class_error_te[i])
         best_error[j] = min(class_error_te)
         best_lambda[j] = lambdas[int(np.argmin(class_error_te))]
         
@@ -89,14 +89,14 @@ def cross_validation(y,tX,degrees,lambdas,k_fold,seed,split=""):
     best_lambda_final = best_lambda[int(np.argmin(best_error))]
     best_degree_final = degrees[int(np.argmin(best_error))]
         
-    print('\nBest degree :',best_degree_final)
-    print('Best error :',best_error_final)
-    print('Best lambda :',best_lambda_final)
+    print('\nBest degree :', best_degree_final)
+    print('Best error :', best_error_final)
+    print('Best lambda :', best_lambda_final)
     
     #Visualisation part
     ##plt.tight_layout() 
     ##savefig('Cross_validation'+name,lgd)  
-    return best_degree_final,best_lambda_final,best_error_final
+    return best_degree_final, best_lambda_final, best_error_final
 
 
 def cross_validation_rr(y, x, k_indices, k, lambda_, degree):
@@ -129,10 +129,10 @@ def cross_validation_rr(y, x, k_indices, k, lambda_, degree):
     x_test = count_NaN(x_test)
     
     x_train,median_train = sanitize_NaN(x_train)
-    x_test,median_test = sanitize_NaN(x_test,median_train)
+    x_test,median_test = sanitize_NaN(x_test, median_train)
     
     x_train,mean_tr,std_tr = standardize(x_train)
-    x_test, mean_te,ste_te = standardize(x_test,mean_tr,std_tr)
+    x_test, mean_te,ste_te = standardize(x_test, mean_tr, std_tr)
     
     # form data with polynomial degree:
     x_train_poly = build_poly(x_train,degree)
@@ -140,10 +140,10 @@ def cross_validation_rr(y, x, k_indices, k, lambda_, degree):
    
     #3. WE RUN THE MODEL AND COMPUTE THE ERROR
         # ridge regression: 
-    w_rr = ridge_regression(y_train,x_train_poly,lambda_)
+    w_rr = ridge_regression(y_train, x_train_poly, lambda_)
     
     # calculate the classification error for train and test data:
-    loss_tr= sum(abs(y_train-predict_labels(w_rr,x_train_poly)))/(2*len(y_train))
-    loss_te = sum(abs(y_test-predict_labels(w_rr,x_test_poly)))/(2*len(y_test))
+    loss_tr= sum(abs(y_train-predict_labels(w_rr, x_train_poly)))/(2*len(y_train))
+    loss_te = sum(abs(y_test-predict_labels(w_rr, x_test_poly)))/(2*len(y_test))
     
     return loss_tr, loss_te

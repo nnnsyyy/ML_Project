@@ -14,8 +14,8 @@ def build_poly(x, degree):
     @param d : the degree of the polynomial basis we want to obtain.
     @return X : the polynomial basis from x, in the form [1, x_1, ... x_n, x_1², ..., x_n²,...,x_1^d, ..., x_n^d]
     """
-    X=np.zeros((x.shape[0],(degree)*x.shape[1]+1))
-    for i in range(1,degree+1):
+    X=np.zeros((x.shape[0], (degree)*x.shape[1]+1))
+    for i in range(1, degree+1):
         for j in range(x.shape[1]):
             #print((i-1)*(x.shape[1])+j+1)
             X[:,(i-1)*x.shape[1]+j+1]=x[:,j]**i

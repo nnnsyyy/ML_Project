@@ -50,7 +50,7 @@ def standardize(x, mean_x=None, std_x=None):
     tx = np.delete(tx, excluded_col, axis=1)
     return tx, mean_x, std_x
 
-def sanitize_NaN(tX,median_vec=None):
+def sanitize_NaN(tX, median_vec=None):
     """
     Removes the NaNs from the data and replace it with the median of the valid data. 
     The columns are hard coded, represent the columns from the dataset for the project 1
@@ -100,7 +100,7 @@ def sanitize_NaN(tX,median_vec=None):
         x[:,row][np.where(x[:,row] == ZERO_NAN)] = median_vec[i+j+1]
     return x, median_vec
         
-def split_dataset(y,tX,ids):
+def split_dataset(y, tX, ids):
     """
         Splits the initial dataset into four smaller datasets, according to the the PRI_jet_num
         We do the splits manually because we ended having problems with the datatypes when we tried to do

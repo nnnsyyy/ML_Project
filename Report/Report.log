@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.7.5)  31 OCT 2016 14:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.7.5)  31 OCT 2016 14:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -399,8 +399,7 @@ Package: geometry 2010/09/12 v5.6 Page Geometry
 \Gm@layouthoffset=\dimen149
 \Gm@layoutvoffset=\dimen150
 \Gm@dimlist=\toks24
-)
-No file Report.aux.
+) (./Report.aux)
 \openout1 = `Report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
@@ -419,6 +418,7 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 10.
 LaTeX Font Info:    ... okay on input line 10.
 \AtBeginShipoutBox=\box32
 Package hyperref Info: Link coloring OFF on input line 10.
+
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
@@ -430,6 +430,8 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 10.
 LaTeX Info: Redefining \pageref on input line 10.
 LaTeX Info: Redefining \nameref on input line 10.
+
+(./Report.out) (./Report.out)
 \@outlinefile=\write3
 \openout3 = `Report.out'.
 
@@ -523,24 +525,11 @@ Missing character: There is no ’ in font ptmr7t!
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no ˆ in font ptmr7t!
 Missing character: There is no ’ in font ptmr7t!
-
-LaTeX Warning: Reference `tab:RR' on page 1 undefined on input line 60.
-
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
-
-LaTeX Warning: Reference `tab:RR' on page 2 undefined on input line 81.
-
-
-LaTeX Warning: Reference `tab:results' on page 2 undefined on input line 81.
-
-
-LaTeX Warning: Reference `fig:cross-validation' on page 2 undefined on input li
-ne 105.
-
-<Cross_validation_10_11.pdf, id=36, 368.22694pt x 164.89546pt>
+<Cross_validation_10_11.pdf, id=87, 368.22694pt x 164.89546pt>
 File: Cross_validation_10_11.pdf Graphic file (type pdf)
 
 <use Cross_validation_10_11.pdf>
@@ -564,29 +553,16 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 117.
  (./Report.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 117.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 117.
-
-
-Package rerunfilecheck Warning: File `Report.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `Report.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  46AF9086BDAC40B9EB0BF753E99E4786;973.
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
+Package rerunfilecheck Info: File `Report.out' has not changed.
+(rerunfilecheck)             Checksum: 46AF9086BDAC40B9EB0BF753E99E4786;973.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 117.
  ) 
 Here is how much of TeX's memory you used:
- 8004 strings out of 493029
- 115762 string characters out of 6136235
- 238559 words of memory out of 5000000
- 11408 multiletter control sequences out of 15000+600000
- 42773 words of font info for 91 fonts, out of 8000000 for 9000
+ 8024 strings out of 493029
+ 116063 string characters out of 6136235
+ 239656 words of memory out of 5000000
+ 11423 multiletter control sequences out of 15000+600000
+ 41666 words of font info for 90 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  32i,16n,28p,1403b,314s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
@@ -606,10 +582,10 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist
 fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw
 /times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.
 pfb>
-Output written on Report.pdf (2 pages, 288651 bytes).
+Output written on Report.pdf (2 pages, 289666 bytes).
 PDF statistics:
- 136 PDF objects out of 1000 (max. 8388607)
- 104 compressed objects within 2 object streams
+ 183 PDF objects out of 1000 (max. 8388607)
+ 151 compressed objects within 2 object streams
  21 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 118 words of extra memory for PDF output out of 10000 (max. 10000000)
 

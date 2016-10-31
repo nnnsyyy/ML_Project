@@ -1,3 +1,7 @@
+This files gives the log for our best run.
+
+1. We have the parameters
+
     #0. DEFINE PARAMETERS FOR OUR RUN
     seed = 1
     
@@ -6,7 +10,9 @@
     k_fold = 4
     lambdas = [np.logspace(-3,3,20),np.logspace(-3,3,20),np.logspace(-3,3,20),np.logspace(-3,3,20)]
 
-    export_file="test_split_data_param_4"
+    export_file="test_split_data_9_10_11_12_13__14_lambda_3_3_20"
+
+2. The best run : all cross validation-steps and additional information
 
 lambda= 12.74275, Percentage of classification error :  0.217331251501
 lambda= 26.366509, Percentage of classification error :  0.213337737209
