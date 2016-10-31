@@ -78,7 +78,7 @@ Due to lack of time, we only applied this formatting to the Ridge Regression, wh
 
 
 \subsubsection{Details of the results}
-The detail of the results we obtained is summarised in the table \ref{tab:RR} below. We see that the prediction error is overall higher than in what we have in the table \ref{tab:results}. This could be because we have a smaller dataset each time that we train on, and so the result is slightly less precise than when wedo the training on the whole dataset. Note that the splits vary a lot in the number of elements in them, and that the splits $0$ and $1$ have way less features than others : it is due to the fact that some columns end up being filled only with $NaNs$ and are hence excluded as they do not convey any information. Comparing the results that we got from the improvement, we increased the accuracy of our prediction $1.1\%$, which is quite good, as it tended to be quite complicated to go above  $82\%$ for the prediction accuracy.
+The detail of the results we obtained is summarised in the table \ref{tab:RR} below. We see that the prediction error is overall higher than in what we have in the table \ref{tab:results}. This could be because we have a smaller dataset each time that we train on, and so the result is slightly less precise than when wedo the training on the whole dataset. Note that the splits vary a lot in the number of elements in them, and that the splits $0$ and $1$ have way less features than others : it is due to the fact that for some splits, certain columns end up being filled only with $NaNs$ and are hence excluded as they do not convey any information. Comparing the results that we got from the improvement, we increased the accuracy of our prediction $1.1\%$, which is quite good, as it tended to be quite complicated to go above  $82\%$ for the prediction accuracy. We see that through our improvements, the NaNs are dealt with more specifically than just replacing them with the median of the valid data : sometimes we don't consider them, sometimes we replace them. This splitting is really about the flexibility it gives to our model. We could even have gone further into the reasoning, by splitting the data from each JET\_split into smaller datas, according to those who contains some NaNs and those who do not. We however did not have time to implement that.
 
 \begin{table}[!ht]
 	\centering
@@ -102,7 +102,7 @@ The detail of the results we obtained is summarised in the table \ref{tab:RR} be
 	\label{tab:RR}
 \end{table}
 
-Having this split dataset allows us a lot more flexibility in picking the weights and matches together particles that have the same behavior, hence the fact that it is our best result. We want also to show an example of cross-validation, on the figure \ref{fig:cross-validation} below.
+Globally, through the increased flexibility of our model, we were able to achieve a greater accuracy. We want also to show an example of cross-validation, on the figure \ref{fig:cross-validation} below.
 
 \begin{figure}[!ht]
 	\centering
@@ -113,5 +113,5 @@ Having this split dataset allows us a lot more flexibility in picking the weight
 
 We have here in our figure a behaviour that could seem strange, because the cross-validation plot has peaks, and is flat otherwise. It is due to the fact we do not use a cost function here, but that we rather compute the classification error (in percentage of error). We know that a small cost function implies a small classification eror, but we also know that the converse is not true : a small classification error will not imply a small cost function. Hence, the graph that we have here can seem quite unpredictable. We choose to use the classification error over to usual cost function because it allowed for searching for a wider range of solutions : some that would not minimize the cost function, but would actually classify our data quite well.
 \section{Conclusion}
-We were able to approach the problem of finding the Higgs Boson from with quite different Machine Learning methods, but were very surprised in the result. While we expected the (Regularized) Logistic Regression to perform well, it presented too many fallbacks for us to use it reliably : the convergence was very slow, the result not extremely accurate. We used then the Ridge regression, which isn't iterative, and got our best results with it.
+We were able to approach the problem of finding the Higgs Boson from with quite different Machine Learning methods, but were very surprised in the result. While we expected the (Regularized) Logistic Regression to perform well, it presented too many fallbacks for us to use it reliably : the convergence was very slow, the result not extremely accurate. We used then the Ridge regression, which isn't iterative, and obtained our best predictions with it.
 \end{document}
