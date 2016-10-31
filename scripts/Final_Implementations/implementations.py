@@ -11,7 +11,13 @@ from build_polynomial import *
 
 def least_squares_GD(y, tx, initial_w, max_iters, gamma):
     """
-    TODO
+    Implements gradient descent.
+        @param y : raw output variable 
+        @param tx :raw input variable, might be a polynomial basis obtained from the input x
+        @param initial_w : the intial guess
+        @param max_iters : the maximum number of iterations that the algorithm will run for
+        @param gamma: the size of the step in each of the iterations
+        @return : weights that describe the generated model and the loss associated with them
     """
     w = initial_w
     for n_iter in range(max_iters):
@@ -25,17 +31,23 @@ def least_squares_GD(y, tx, initial_w, max_iters, gamma):
 
 def least_squares_SGD(y, tx, initial_w, max_iters, gamma):
     """
-    TODO
+    Implements stochastic gradient descent with the batch size of 1.
+        @param y : raw output variable 
+        @param tx :raw input variable, might be a polynomial basis obtained from the input x
+        @param initial_w : the intial guess
+        @param max_iters : the maximum number of iterations that the algorithm will run for
+        @param gamma: the size of the step in each of the iterations
+        @return : weights that describe the generated model and the loss associated with them
     """
     shuffle = True
 
     w = initial_w
     n_iter = 0
-    seed = 1
     batch_size = 1
+    np.random.seed(1)    
     
     while(n_iter < max_iters):
-        for minibatch_y, minibatch_tx in batch_iter(y, tx, seed, batch_size, shuffle):
+        for minibatch_y, minibatch_tx in batch_iter(y, tx, np.random.random_integers(max_iters), batch_size, shuffle):
             w = w - gamma * sgd_h.compute_stoch_gradient(minibatch_y, minibatch_tx, w)
             loss = co.compute_loss(minibatch_y, minibatch_tx, w)
             print("Stochastic Gradient Descent({bi}/{ti}): loss={l}".format(bi = n_iter, ti = max_iters - 1, l = loss))
@@ -49,7 +61,10 @@ def least_squares_SGD(y, tx, initial_w, max_iters, gamma):
 
 def least_squares(y, tx):
     """
-    TODO
+    Implements lleast squares.
+        @param y : raw output variable 
+        @param tx :raw input variable, might be a polynomial basis obtained from the input x
+        @return : weights that describe the generated model and the loss associated with them
     """
     xtx = np.dot(tx.T, tx)
     w = np.linalg.solve(xtx, np.dot(tx.T, y))
@@ -60,7 +75,11 @@ def least_squares(y, tx):
 
 def ridge_regression(y, tx, lambda_):
     """ 
-    TODO
+    Implements ridge regression.
+        @param y : raw output variable 
+        @param tx :raw input variable, might be a polynomial basis obtained from the input x
+        @param lambda_ : parameter to penalize the large weights
+        @return :  weights that describe the generated model and the loss associated with them
     """
     w = np.linalg.solve(np.dot(tx.T, tx) + lambda_ * np.identity(tx.shape[1]), 
                         np.dot(tx.T, y))
@@ -73,7 +92,13 @@ def ridge_regression(y, tx, lambda_):
 
 def logistic_regression(y, tx, initial_w, max_iters, gamma):
     """ 
-    TODO
+    Implements logistic regression.
+        @param y : raw output variable 
+        @param tx :raw input variable, might be a polynomial basis obtained from the input x
+        @param initial_w : the intial guess
+        @param max_iters : the maximum number of iterations that the algorithm will run for
+        @param gamma: the size of the step in each of the iterations
+        @return : weights that describe the generated model and the loss associated with them
     """
     threshold = 1e-8
     losses = []
@@ -99,7 +124,13 @@ def logistic_regression(y, tx, initial_w, max_iters, gamma):
 
 def regularized_logistic_regression(y, tx, lambda_, initial_w, max_iters, gamma):
     """ 
-    TODO
+    Implements regularized logistic regression.
+        @param y : raw output variable 
+        @param tx :raw input variable, might be a polynomial basis obtained from the input x
+        @param initial_w : the intial guess
+        @param max_iters : the maximum number of iterations that the algorithm will run for
+        @param gamma: the size of the step in each of the iterations
+        @return : weights that describe the generated model and the loss associated with them
     """
     threshold = 1e-8
     losses = []
